@@ -19,5 +19,6 @@
     <string name="nomedoGasto">Nome</string>
     <string name="salvar">Salvar</string>
     <string name="valordoGasto">Valor</string>
+    <string name="tipo_de_gasto">Tipo de gasto</string>
 
 </resources>

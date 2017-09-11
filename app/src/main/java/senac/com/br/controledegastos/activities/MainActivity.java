@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-   
+
     public void AdicionarGasto(){
         Intent i = new Intent(this, NovoGastoActivity.class);
         startActivity(i);

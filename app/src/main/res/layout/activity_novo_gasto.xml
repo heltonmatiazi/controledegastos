@@ -15,7 +15,8 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/nomeGasto"/>
+        android:hint="@string/nomeGasto"
+        android:id="@+id/nomeGasto"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +24,8 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/localGasto"/>
+        android:hint="@string/localGasto"
+        android:id="@+id/localGasto"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,13 +33,13 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/SpinnerFormaPagamento"></Spinner>
-   <EditText
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="@string/valordoGasto"
-       android:inputType=""
-       tools:ignore="LabelFor"/>
+        android:id="@+id/SpinnerFormaPagamento"
+        android:entries="@array/spinnerItems"></Spinner>
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/valorGasto"
+      android:text="@string/valordoGasto"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,10 +49,22 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:text="@string/dataGasto"/>
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="@string/tipo_de_gasto"/>
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/orcamentoSpinner"></Spinner>
     <CalendarView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/dataGasto"></CalendarView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/capturaData"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

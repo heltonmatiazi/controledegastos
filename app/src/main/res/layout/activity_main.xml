@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:maxHeight="42dp"
             android:text="@string/adicionar_gasto"
-            android:drawableStart="@drawable/cash2"
+            android:drawableStart="@drawable/cash"
             android:onClick="adicionarGasto"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"/>

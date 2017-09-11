@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="spinnerItems">
+        <item>Dinheiro</item>
+        <item>Cartão de Crédito</item>
+        <item>Cartão de Débito</item>
+    </string-array>
+</resources>
