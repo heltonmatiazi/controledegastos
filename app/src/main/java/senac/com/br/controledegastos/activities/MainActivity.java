@@ -1,6 +1,7 @@
 package senac.com.br.controledegastos.activities;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -37,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
        }
     private void addDrawerItems() {
-        String[] opcoesArray = { "Adicionar Item ao Orçamento", "Adicionar Gasto", "Consultar Lista de Orçamentos",
-                "Consultar Lista de Gastos", "Gerar Relatório" };
+        String[] opcoesArray = { "Adicionar Novo Gasto", "Visualizar Gastos", "Adicionar Novo Item no Orcamento",
+                "Visualizar Itens do Orcamento", "Gerar Relatório" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opcoesArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -47,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 1:
-                        Toast.makeText(MainActivity.this, "opcao 1 selecionada com sucesso", Toast.LENGTH_SHORT).show();
-                        break;
+                        AdicionarGasto();
                     case 2:
                         Toast.makeText(MainActivity.this, "opcao 2 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                         break;
@@ -118,9 +118,15 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+   
     public void AdicionarGasto(){
-        Gasto gasto = new Gasto();
+        Intent i = new Intent(this, NovoGastoActivity.class);
+        startActivity(i);
     };
+    public void VisualizarGastos(){
+        Intent i = new Intent(this,ListaDeGastosActivity.class);
+        startActivity(i);
+    }
 }
 
 

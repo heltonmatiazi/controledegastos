@@ -5,5 +5,19 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="Testing">Test</string>
+    <string name="adicionar_gasto">Adicionar Gasto</string>
+    <string name="restanteMes">Dinheiro Restante Para o Mês:</string>
+    <string name="placeholder_dinheiro">R$ 0.00</string>
+    <string name="placeholder_saldo">R$ 0.00</string>
+    <string name="gastosMes">Total de Gastos no Mês:</string>
+    <string name="dataGasto">Data</string>
+    <string name="hintFormaPagto">Insira a Forma de Pagamento</string>
+    <string name="localGasto">Insira o Local do Gasto</string>
+    <string name="nomeGasto">Insira o Nome do Gasto</string>
+    <string name="valorGasto">Insira o Valor</string>
+    <string name="localdoGasto">Local</string>
+    <string name="nomedoGasto">Nome</string>
+    <string name="salvar">Salvar</string>
+    <string name="valordoGasto">Valor</string>
 
 </resources>
