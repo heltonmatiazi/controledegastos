@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Holy Operating Systems, Batdroid!"
+            android:text="@string/Testing"
             android:textSize="24sp"
             android:gravity="center"
             android:layout_marginTop="100dp"/>
@@ -30,7 +30,9 @@
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_input_add"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:contentDescription=""
+            android:onClick="AdicionarGasto"/>
 
     </RelativeLayout>
 
@@ -40,6 +42,7 @@
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_gravity="left|start"
-        android:background="#ffeeeeee"/>
+        android:background="#ffeeeeee"
+        tools:ignore="RtlHardcoded"/>
 
 </android.support.v4.widget.DrawerLayout>

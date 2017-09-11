@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import senac.com.br.controledegastos.R;
+import senac.com.br.controledegastos.model.Gasto;
 
 public class MainActivity extends AppCompatActivity {
     private ListView mDrawerList;
@@ -30,36 +31,50 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
-
         addDrawerItems();
         setupDrawer();
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
        }
     private void addDrawerItems() {
-        String[] osArray = { "opcao 1", "opcao com texto longo", "opcao 3", "opcao 4", "opcao 5" };
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        String[] opcoesArray = { "Adicionar Item ao Orçamento", "Adicionar Gasto", "Consultar Lista de Orçamentos",
+                "Consultar Lista de Gastos", "Gerar Relatório" };
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opcoesArray);
         mDrawerList.setAdapter(mAdapter);
 
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "opcao selecionada com sucesso", Toast.LENGTH_SHORT).show();
+                switch (position){
+                    case 1:
+                        Toast.makeText(MainActivity.this, "opcao 1 selecionada com sucesso", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(MainActivity.this, "opcao 2 selecionada com sucesso", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(MainActivity.this, "opcao 3 selecionada com sucesso", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        Toast.makeText(MainActivity.this, "opcao 4 selecionada com sucesso", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 5:
+                        Toast.makeText(MainActivity.this, "opcao 5 selecionada com sucesso", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+
+
             }
         });
     }
-
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Navegação!");
+                getSupportActionBar().setTitle("Menu");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
-
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -67,50 +82,45 @@ public class MainActivity extends AppCompatActivity {
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
-
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         // Activate the navigation drawer toggle
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
+    public void AdicionarGasto(){
+        Gasto gasto = new Gasto();
+    };
 }
 
 

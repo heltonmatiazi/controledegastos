@@ -5,5 +5,5 @@ package senac.com.br.controledegastos.DAO;
  */
 
 public class GastoDao {
-    
+
 }

@@ -12,9 +12,7 @@ public class Orcamento {
     public Float valorInicial;
     public ArrayList<Gasto> listaDeGastos;
     // initializing empty constructor
-    public Orcamento(){
-
-    };
+    public Orcamento(){};
 
     public Orcamento(String nome, Float saldo, Float valorInicial, ArrayList<Gasto> listaDeGastos) {
         this.nome = nome;
