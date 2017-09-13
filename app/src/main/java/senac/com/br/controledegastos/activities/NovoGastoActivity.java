@@ -9,7 +9,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +26,6 @@ public class NovoGastoActivity extends AppCompatActivity {
     TextView capturaData;
     Spinner formaPagto;
     Spinner orcamentoSpinner;
-    CalendarView dataGasto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +36,10 @@ public class NovoGastoActivity extends AppCompatActivity {
         localGasto = (EditText) findViewById(R.id.localGasto);
         formaPagto = (Spinner) findViewById(R.id.SpinnerFormaPagamento);
         valorGasto = (TextView) findViewById(R.id.valorGasto);
-        dataGasto = (CalendarView) findViewById(R.id.dataGasto);
         capturaData = (TextView) findViewById(R.id.capturaData);
+
         orcamentoSpinner = (Spinner) findViewById(R.id.orcamentoSpinner);
         //TODO gerar spinner de orcamento
-        inicializarSpinner();
-    };
-    public void inicializarSpinner(){
-
     };
     public void salvarGasto(){
         // santa validação Batman
@@ -50,20 +47,19 @@ public class NovoGastoActivity extends AppCompatActivity {
         String local = localGasto.getText().toString();
         String forma = formaPagto.getSelectedItem().toString();
         Float valor = parseFloat(valorGasto.getText().toString());
-        dataGasto.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth){
-                capturaData.setText("Data Selecionada : " + dayOfMonth +" / " + (month+1) + " / " + year);
-            }
-        });
-        String dataGastoFinal = capturaData.getText().toString();
+        // fazendo o parse da data
+        Calendar c = Calendar.getInstance();
+        System.out.println("data atual => " + c.getTime());
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String dataFormamtada = df.format(c.getTime());
+        capturaData.setText(dataFormamtada.toString());
+        String dataCapturada = capturaData.getText().toString();
+
         // reunindo todas as strings em uma lista para deixar a validação mais elegante
         List<String> controleDeCampos = new ArrayList<String>();
         controleDeCampos.add(nome);
         controleDeCampos.add(local);
         controleDeCampos.add(forma);
-        controleDeCampos.add(dataGastoFinal);
         // checando campos vazios
         for (int i = 0; i < controleDeCampos.size();i++){
             Object item = controleDeCampos.get(i);
