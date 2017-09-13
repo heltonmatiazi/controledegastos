@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/definir_o_or_amento_para_um_dos_seus_gastos_mensais_utilize_o_bot_o_abaixo_para_adicionar_o_primeiro_item"
+        android:text="@string/subtitulo_slide_3"
         android:layout_below="@+id/titulo_slide_3"
         android:gravity="center"
         android:textColor="#fff"

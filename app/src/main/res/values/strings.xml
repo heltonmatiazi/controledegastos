@@ -23,8 +23,8 @@
     <string name="slide_1_subtitulo">O Aplicativo Simplifica que Sobra esta se preparando para inicializar</string>
     <string name="slide_1_titulo">Bem vindo!</string>
     <string name="titulo_slide_3">O próximo passo...</string>
-    <string name="definir_o_or_amento_para_um_dos_seus_gastos_mensais_utilize_o_bot_o_abaixo_para_adicionar_o_primeiro_item">subtitulo_slide_3</string>
     <string name="subtitulo_slide_2">O primeiro passo é definir o seu limite de gastos mensais.</string>
     <string name="titulo_slide_2">Vamos começar!</string>
+    <string name="subtitulo_slide_3">É definir o orçamento para um ou mais de seus gastos mensais. Clique no botão abaixo para prosseguir.</string>
 
 </resources>
