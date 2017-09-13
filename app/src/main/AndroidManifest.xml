@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".activities.ListaDeGastosActivity">
         </activity>
+        <activity android:name=".activities.IntroActivity"></activity>
     </application>
 
 </manifest>

@@ -29,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // para o ambiente de testes é necessário inicializar os slides todas as vezes que o aplicativo for lançado
+        Intent i = new Intent(this,IntroActivity.class);
+        startActivity(i);
+
         mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
