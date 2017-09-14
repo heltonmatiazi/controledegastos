@@ -33,12 +33,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // para o ambiente de testes é necessário inicializar os slides todas as vezes que o aplicativo for lançado
-        //Intent i = new Intent(this,IntroActivity.class);
-        // startActivity(i);
+        Intent i = new Intent(this,IntroActivity.class);
+         startActivity(i);
 
         // testando se a intro já foi executada - isso vai inicializar o thread que vai rolar os slides
         // deixar comentado durante os testes de slides
-        launchOnce();
+        //launchOnce();
         // inicializando o menu lateral
         mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
