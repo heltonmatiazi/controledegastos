@@ -1,10 +1,9 @@
 <resources>
-    <string name="app_name">ControleDeGastos</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-    <string name="Testing">Test</string>
+    <string name="app_name">Simplifica que Sobra</string>
+    <string name="action_settings">Configurações</string>
+    <string name="drawer_open">Abrir Menu</string>
+    <string name="drawer_close">Fechar Menu</string>
+    <string name="Testing">Teste</string>
     <string name="adicionar_gasto">Adicionar Gasto</string>
     <string name="restanteMes">Dinheiro Restante Para o Mês:</string>
     <string name="placeholder_dinheiro">R$ 0.00</string>
@@ -20,11 +19,23 @@
     <string name="salvar">Salvar</string>
     <string name="valordoGasto">Valor</string>
     <string name="tipo_de_gasto">Tipo de gasto</string>
-    <string name="slide_1_subtitulo">O Aplicativo Simplifica que Sobra esta se preparando para inicializar</string>
+    <string name="slide_1_subtitulo">Vamos preparar o controle de contas desse mês</string>
     <string name="slide_1_titulo">Bem vindo!</string>
-    <string name="titulo_slide_3">O próximo passo...</string>
-    <string name="subtitulo_slide_2">O primeiro passo é definir o seu limite de gastos mensais.</string>
-    <string name="titulo_slide_2">Vamos começar!</string>
-    <string name="subtitulo_slide_3">É definir o orçamento para um ou mais de seus gastos mensais. Clique no botão abaixo para prosseguir.</string>
-
+    <string name="subtitulo_slide_2">Vamos definir seu limite de gastos mensal</string>
+    <string name="titulo_slide_2">Primeiro</string>
+    <string name="titulo_slide_3">Definindo O Orçamento</string>
+    <string name="subtitulo_slide_3">Agora vamos definir os itens do seu orçamento. Clique no botão abaixo para começar.</string>
+    <string name="iniciar">Iniciar</string>
+    <string name="definir">Definir</string>
+    <string name="tutorial_titulo_1">Olá!</string>
+    <string name="tutorial_subTitulo_1">Obrigado por instalar o aplicativo Simplifica que Sobra</string>
+    <string name="tutorial_titulo_2">Vamos explicar brevemente as funções do aplicativo</string>
+    <string name="tutorial_subTitulo_2">Você pode cancelar esse tutorial a qualquer momento pressionando o botão \'pular'</string>
+    <string name="tutorial_subtitulo_2_2">Caso deseje visualizar o tutorial novamente, selecione a opção \'repetir tutorial' no menu principal</string>
+    <string name="tutorial_titulo_3"></string>
+    <string name="tutorial_subTitulo_3"></string>
+    <string name="tutorial_titulo_4"></string>
+    <string name="tutorial_subTitulo_4"></string>
+    <string name="tutorial_titulo_5"></string>
+    <string name="tutorial_subTitulo_5"></string>
 </resources>

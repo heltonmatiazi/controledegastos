@@ -23,7 +23,7 @@ public class TutorialActivity extends AppIntro {
         addSlide(SampleSlide.newInstance(R.layout.tutorial_slide_4));
         addSlide(SampleSlide.newInstance(R.layout.tutorial_slide_5));
 
-        showSkipButton(false);
+        showSkipButton(true);
 
         setSlideOverAnimation();
     }

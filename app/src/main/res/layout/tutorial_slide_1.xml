@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                style="@style/relativeBase"
                 android:background="@color/colorPrimary">
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/slide_1_titulo"
-        android:textColor="#fff"
+        style="@style/relativeTextView"
+        android:text="@string/tutorial_titulo_1"
         android:textSize="52sp"
         android:layout_centerInParent="true"
-        android:gravity="center"
-        android:singleLine="true"
-        android:id="@+id/tutorial_titulo_slide_1"/>
+        android:id="@+id/tutorial_titulo_1"/>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/slide_1_subtitulo"
-        android:layout_below="@+id/tutorial_titulo_slide_1"
-        android:gravity="center"
-        android:textColor="#fff"
+        style="@style/relativeTextView"
+        android:text="@string/tutorial_subTitulo_1"
+        android:layout_below="@+id/tutorial_titulo_1"
         android:textSize="25sp"/>
 </RelativeLayout>

@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
+                style="@style/relativeBase"
               android:background="@color/colorAccent">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/relativeTextView"
         android:text="@string/titulo_slide_2"
-        android:textColor="#fff"
         android:textSize="50sp"
         android:layout_centerInParent="true"
-        android:gravity="center"
         android:id="@+id/titulo_slide_2"/>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="@string/subtitulo_slide_2"
         android:layout_below="@+id/titulo_slide_2"
-        android:gravity="center"
-        android:textColor="#fff"
+        android:id="@+id/subtitulo_slide_2"
+        style="@style/relativeTextView"
         android:textSize="25sp"/>
+    <Buttons
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        style="?android:borderlessButtonStyle"
+        android:text="@string/definir"
+        android:background="@color/bleachPink"
+        android:onClick="definirSaldo"
+        android:layout_below="@+id/subtitulo_slide_2"/>
 </RelativeLayout>

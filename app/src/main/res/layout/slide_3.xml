@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/colorPrimaryDark">
+              style="@style/relativeBase"
+                android:background="@color/colorPrimaryDark">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="@string/titulo_slide_3"
-        android:textColor="#fff"
         android:textSize="40sp"
         android:layout_centerInParent="true"
-        android:gravity="center"
+        style="@style/relativeTextView"
         android:id="@+id/titulo_slide_3"/>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="@string/subtitulo_slide_3"
         android:layout_below="@+id/titulo_slide_3"
-        android:gravity="center"
-        android:textColor="#fff"
+        style="@style/relativeTextView"
+        android:id="@+id/subtitulo_slide_3"
         android:textSize="25sp"/>
-    <!-- adicionar botão aqui -->
+    <Button
+        android:layout_marginTop="10sp"
+        android:padding="10sp"
+        android:onClick="definirOrcamentos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:borderlessButtonStyle"
+        android:text="@string/iniciar"
+        android:background="@color/CyanBlue"
+        android:layout_below="@+id/subtitulo_slide_3"/>
 </RelativeLayout>
