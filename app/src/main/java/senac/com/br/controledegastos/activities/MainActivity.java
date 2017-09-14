@@ -31,14 +31,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /* testando o tutorial - esse intent sempre vai lançar on start
+        Intent j = new Intent(this,TutorialActivity.class);
+        startActivity(j);*/
+        launchTutorial();
 
-        // para o ambiente de testes é necessário inicializar os slides todas as vezes que o aplicativo for lançado
+        // para o ambiente de testes é necessário inicializar os slides de controle de mês todas as vezes que o aplicativo for lançado
         Intent i = new Intent(this,IntroActivity.class);
          startActivity(i);
 
-        // testando se a intro já foi executada - isso vai inicializar o thread que vai rolar os slides
-        // deixar comentado durante os testes de slides
-        //launchOnce();
+        /* esse método vai ser executado todos os meses, ele vai testar a data do sistema, se for o início de um novo mês ele vai
+        pedir um novo input de dinheiro para o mês, vai debitar a fatura do cartão no total e vai salvar os dados no banco de dados
+        */
+        //launchMonthly();
+
         // inicializando o menu lateral
         mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -48,8 +54,40 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
        }
-/* testando se a intro já foi executada. Caso ela nunca tenha sido rodada, o app irá executar os slides de introdução */
-    private void launchOnce(){
+/*esse metodo vai controlar o inicio e fim de mês*/
+//TODO implementar logica de controle de dadas - validar isso vai ser uma bosta
+    private void launchMonthly(){
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //  Initialize SharedPreferences
+                SharedPreferences getPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(getBaseContext());
+                //  Create a new boolean and preference and set it to true
+                boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
+                //  If the activity has never started before...
+                if (isFirstStart) {
+                    //  Launch app intro
+                    final Intent i = new Intent(MainActivity.this, IntroActivity.class);
+                    runOnUiThread(new Runnable() {
+                        @Override public void run() {
+                            startActivity(i);
+                        }
+                    });
+                    //  Make a new preferences editor
+                    SharedPreferences.Editor e = getPrefs.edit();
+                    //  Edit preference to make it false because we don't want this to run again
+                    e.putBoolean("firstStart", false);
+                    //  Apply changes
+                    e.apply();
+                }
+            }
+        });
+        // Start the thread
+        t.start();
+    };
+    // esse método vai lançar o tutorial na primeira vez que o usuário utilizar o aplicativo
+    private void launchTutorial(){
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
