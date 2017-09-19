@@ -25,13 +25,13 @@
     <string name="titulo_slide_2">Primeiro</string>
     <string name="titulo_slide_3">Definindo O Orçamento</string>
     <string name="subtitulo_slide_3">Agora vamos definir os itens do seu orçamento. Clique no botão abaixo para começar.</string>
-    <string name="iniciar">Iniciar</string>
+    <string name="adicionar">Adicionar</string>
     <string name="definir">Definir</string>
     <string name="tutorial_titulo_1">Olá!</string>
     <string name="tutorial_subTitulo_1">Obrigado por instalar o aplicativo Simplifica que Sobra</string>
     <string name="tutorial_titulo_2">Vamos explicar brevemente as funções do aplicativo</string>
-    <string name="tutorial_subTitulo_2">Você pode cancelar esse tutorial a qualquer momento pressionando o botão \'pular'</string>
-    <string name="tutorial_subtitulo_2_2">Caso deseje visualizar o tutorial novamente, selecione a opção \'repetir tutorial' no menu principal</string>
+    <string name="tutorial_subTitulo_2">Você pode cancelar esse tutorial a qualquer momento pressionando o botão pular</string>
+    <string name="tutorial_subtitulo_2_2">Caso deseje visualizar o tutorial novamente, selecione a opção repetir tutorial no menu principal</string>
     <string name="tutorial_titulo_3"></string>
     <string name="tutorial_subTitulo_3"></string>
     <string name="tutorial_titulo_4"></string>

@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="?android:borderlessButtonStyle"
-        android:text="@string/iniciar"
+        android:text="@string/adicionar"
         android:background="@color/CyanBlue"
         android:layout_below="@+id/subtitulo_slide_3"/>
 </RelativeLayout>
