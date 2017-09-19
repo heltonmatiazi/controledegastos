@@ -4,8 +4,8 @@
                 android:background="@color/colorPrimary">
     <TextView
         android:text="@string/slide_1_titulo"
-        android:textSize="52sp"
-        android:layout_centerInParent="true"
+        android:textSize="45sp"
+        android:layout_marginTop="100sp"
         style="@style/relativeTextView"
         android:id="@+id/tutorial_titulo_slide_5"/>
     <TextView

@@ -31,14 +31,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /* testando o tutorial - esse intent sempre vai lançar on start
+        /* testando o tutorial - esse intent sempre vai lançar on start*/
         Intent j = new Intent(this,TutorialActivity.class);
-        startActivity(j);*/
-        launchTutorial();
+        startActivity(j);
+       // launchTutorial();
 
         // para o ambiente de testes é necessário inicializar os slides de controle de mês todas as vezes que o aplicativo for lançado
-        Intent i = new Intent(this,IntroActivity.class);
-         startActivity(i);
+        //Intent i = new Intent(this,IntroActivity.class);
+         //startActivity(i);
 
         /* esse método vai ser executado todos os meses, ele vai testar a data do sistema, se for o início de um novo mês ele vai
         pedir um novo input de dinheiro para o mês, vai debitar a fatura do cartão no total e vai salvar os dados no banco de dados
@@ -131,15 +131,19 @@ public class MainActivity extends AppCompatActivity {
                         AdicionarGasto();
                         break;
                     case 2:
+                        // visualizar gastos
                         Toast.makeText(MainActivity.this, "opcao 2 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                         break;
                     case 3:
+                        // adicionar novo item no orçamento
                         Toast.makeText(MainActivity.this, "opcao 3 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                         break;
                     case 4:
+                        //visualizar itens do orçamento
                         Toast.makeText(MainActivity.this, "opcao 4 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                         break;
                     case 5:
+                        // gerar relatório
                         Toast.makeText(MainActivity.this, "opcao 5 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                         break;
                 }

@@ -27,12 +27,7 @@ public class IntroActivity extends AppIntro {
         showSkipButton(false);
 
         setFlowAnimation();
-        /* deixei elas aqui para que outros desenvolvedores possam testar
-         as outras animações com facilidade, basta substituir a setFlowAnimation
-         por uma dessas três:
-        setDepthAnimation();
-        setSlideOverAnimation();
-        setZoomAnimation()*/;
+
     }
 
     @Override
