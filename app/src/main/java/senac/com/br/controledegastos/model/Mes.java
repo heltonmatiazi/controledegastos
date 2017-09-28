@@ -1,25 +1,53 @@
 package senac.com.br.controledegastos.model;
 
-import java.util.ArrayList;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+import java.util.Collection;
 
 /**
  * Created by helton on 31/08/2017.
  */
 
 public class Mes {
-    public String nome;
-    public ArrayList<Orcamento> listaOrcamentos;
-    public Float cartaoMesAtual;
-    public Float cartaoMesAnterior;
+
+    @DatabaseField(allowGeneratedIdInsert = true, generatedId = true)
+    private Integer id;
+
+    @DatabaseField(canBeNull = false)
+    private String nome;
+
+    @ForeignCollectionField
+    private Collection<Orcamento> listaOrcamentos;
+
+    @DatabaseField(canBeNull = false)
+    private Float cartaoMesAtual;
+
+    @DatabaseField(canBeNull = false)
+    private Float cartaoMesAnterior;
+
     // initializing empty constructor;
     public Mes(){
 
-    };
-    public Mes(String nome, ArrayList<Orcamento> listaOrcamentos, Float cartaoMesAtual, Float cartaoMesAnterior) {
+    }
+
+    public Mes(Integer id) {
+        this.id = id;
+    }
+
+    public Mes(Integer id, String nome, Collection<Orcamento> listaOrcamentos, Float cartaoMesAtual, Float cartaoMesAnterior) {
+        this.id = id;
         this.nome = nome;
         this.listaOrcamentos = listaOrcamentos;
         this.cartaoMesAtual = cartaoMesAtual;
         this.cartaoMesAnterior = cartaoMesAnterior;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -30,11 +58,11 @@ public class Mes {
         this.nome = nome;
     }
 
-    public ArrayList<Orcamento> getListaOrcamentos() {
+    public Collection<Orcamento> getListaOrcamentos() {
         return listaOrcamentos;
     }
 
-    public void setListaOrcamentos(ArrayList<Orcamento> listaOrcamentos) {
+    public void setListaOrcamentos(Collection<Orcamento> listaOrcamentos) {
         this.listaOrcamentos = listaOrcamentos;
     }
 
@@ -54,5 +82,14 @@ public class Mes {
         this.cartaoMesAnterior = cartaoMesAnterior;
     }
 
+    @Override
+    public String toString() {
+        return "Mes{" +
+                ", nome='" + nome + '\'' +
+                ", listaOrcamentos=" + listaOrcamentos +
+                ", cartaoMesAtual=" + cartaoMesAtual +
+                ", cartaoMesAnterior=" + cartaoMesAnterior +
+                '}';
+    }
 
 }

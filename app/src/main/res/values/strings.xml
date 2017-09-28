@@ -13,9 +13,11 @@
     <string name="hintFormaPagto">Insira a Forma de Pagamento</string>
     <string name="localGasto">Insira o Local do Gasto</string>
     <string name="nomeGasto">Insira o Nome do Gasto</string>
+    <string name="nomeItem">Insira o Nome do Item</string>
     <string name="valorGasto">Insira o Valor</string>
     <string name="localdoGasto">Local</string>
     <string name="nomedoGasto">Nome</string>
+    <string name="nomedoItem">Nome</string>
     <string name="salvar">Salvar</string>
     <string name="valordoGasto">Valor</string>
     <string name="tipo_de_gasto">Tipo de gasto</string>
@@ -38,4 +40,25 @@
     <string name="tutorial_subTitulo_4"></string>
     <string name="tutorial_titulo_5"></string>
     <string name="tutorial_subTitulo_5"></string>
+    <string name="rb_unica">Entrada Única</string>
+    <string name="rb_multipla">Entradas Múltiplas</string>
+    <string name="tv_ajuda">Ajuda</string>
+    <string name="texto_ajuda">Entrada Única: quando for um item de orçamento de consumo ou que tenha apenas um pagamento.
+        Ex.: água, luz, telefone. Entradas Múltiplas: quando for um item de orçamento que seja um gasto especifico que
+        o usuário programa uma quantia a ser gasta durante o mês. Ex.: almoço, cinema, pequenos gastos ou gastos
+        diversos. Pequenos Gastos ou Gastos Diversos: no caso de um item de orçamento que o usuário não tenha um
+        valor inicial para o orçamento, ou seja, o usuário apenas quer registrar um gasto que não se enquadra nos
+        outro itens, e não é necessário declarar um valor. Nestes casos o usuário deve somente declarar zero (0,00)
+        no valor do item.</string>
+    <string name="btn_voltar">Voltar</string>
+    <string name="forma">Escolha a forma de pagamento</string>
+    <string name="dinheiro">Dinheiro</string>
+    <string name="credito">Cartão Crédito</string>
+    <string name="debito">Cartão Débito</string>
+    <string name="toast_nomeItem">Campo nome obrigatório.</string>
+    <string name="toast_valorItem">Campo valor obrigatório.</string>
+    <string name="toast_radio">Marque o campo Entrada Única ou Entradas Múltiplas.</string>
+    <string name="toast_salvo">Salvo com sucesso.</string>
+    <string name="toast_atualizado">Atualizado com sucesso</string>
+    <string name="toast_erro">ERRO.</string>
 </resources>

@@ -118,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
         t.start();
     };
     private void addDrawerItems() {
-        String[] opcoesArray = { "Adicionar Novo Gasto", "Visualizar Gastos", "Adicionar Novo Item no Orcamento",
-                "Visualizar Itens do Orcamento", "Gerar Relatório" };
+        String[] opcoesArray = { "Adicionar Novo Item no Orcamento", "Visualizar Itens do Orcamento",
+                "Editar Valor de Orçamento", "Adicionar Novo Gasto", "Visualizar Gastos", "Gerar Relatório" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opcoesArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -127,24 +127,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
+                    case 0:
+                        //Adicionar um item de orçamento
+                        AdicionarItem();
+                        break;
                     case 1:
-                        AdicionarGasto();
+                        // visualizar itens do orçamento
+                        Toast.makeText(MainActivity.this, "Opção 2 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-                        // visualizar gastos
-                        Toast.makeText(MainActivity.this, "opcao 2 selecionada com sucesso", Toast.LENGTH_SHORT).show();
+                        // adicionar novo item no orçamento
+                        Toast.makeText(MainActivity.this, "Opção 3 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                         break;
                     case 3:
-                        // adicionar novo item no orçamento
-                        Toast.makeText(MainActivity.this, "opcao 3 selecionada com sucesso", Toast.LENGTH_SHORT).show();
+                        //Adiciona novo gasto
+                        ;AdicionarGasto();
                         break;
                     case 4:
-                        //visualizar itens do orçamento
-                        Toast.makeText(MainActivity.this, "opcao 4 selecionada com sucesso", Toast.LENGTH_SHORT).show();
+                        // visualizar gastos
+                        Toast.makeText(MainActivity.this, "Opção 5 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                         break;
                     case 5:
                         // gerar relatório
-                        Toast.makeText(MainActivity.this, "opcao 5 selecionada com sucesso", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Opção 6 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                         break;
                 }
 
@@ -207,7 +212,13 @@ public class MainActivity extends AppCompatActivity {
     public void AdicionarGasto(){
         Intent i = new Intent(this, NovoGastoActivity.class);
         startActivity(i);
-    };
+    }
+
+    public void AdicionarItem(){
+        Intent i = new Intent(this, NovoItemActivity.class);
+        startActivity(i);
+    }
+
     public void VisualizarGastos(){
         Intent i = new Intent(this,ListaDeGastosActivity.class);
         startActivity(i);

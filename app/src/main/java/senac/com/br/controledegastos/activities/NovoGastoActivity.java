@@ -2,21 +2,15 @@ package senac.com.br.controledegastos.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-
 import senac.com.br.controledegastos.R;
-
 import static java.lang.Float.parseFloat;
 
 public class NovoGastoActivity extends AppCompatActivity {
@@ -40,6 +34,10 @@ public class NovoGastoActivity extends AppCompatActivity {
 
         orcamentoSpinner = (Spinner) findViewById(R.id.orcamentoSpinner);
         //TODO gerar spinner de orcamento
+        /*Pegando a lista de objetos do BD e jogando no list e no listview
+        listCategorias = categoriaDao.queryForAll();
+        adapterCategorias = new ArrayAdapter<Categoria>(this, android.R.layout.simple_spinner_item, listCategorias);
+        spCategorias.setAdapter(adapterCategorias);*/
     };
     public void salvarGasto(){
         // santa validação Batman
