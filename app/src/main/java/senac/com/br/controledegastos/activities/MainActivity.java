@@ -25,6 +25,7 @@ import senac.com.br.controledegastos.R;
 import senac.com.br.controledegastos.model.Gasto;
 import senac.com.br.controledegastos.model.Mes;
 import senac.com.br.controledegastos.util.RetornoDao;
+import senac.com.br.controledegastos.util.TimeChangedReceiver;
 
 public class MainActivity extends AppCompatActivity {
     private ListView mDrawerList;
@@ -35,11 +36,14 @@ public class MainActivity extends AppCompatActivity {
     private RetornoDao r;
     private Mes mes;
     private boolean confirmarMesAtual;
+    private TimeChangedReceiver timeChange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // dar um jeito de invocar o warning daqui
+        timeChange.onReceive(this,getIntent());
         //TODO Pega o dia e a hora atual do dispositivo
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -49,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
         mes = r.mesAtual(this);
         confirmarMesAtual = r.verificarMesAtual(mes, data);
         if(confirmarMesAtual == false){
-
+        // lançar activity de novo mês
+            //launchMonthly();
         }
         /* testando o tutorial - esse intent sempre vai lançar on start*/
         Intent j = new Intent(this,TutorialActivity.class);
@@ -59,11 +64,6 @@ public class MainActivity extends AppCompatActivity {
         // para o ambiente de testes é necessário inicializar os slides de controle de mês todas as vezes que o aplicativo for lançado
         //Intent i = new Intent(this,IntroActivity.class);
          //startActivity(i);
-
-        /* esse método vai ser executado todos os meses, ele vai testar a data do sistema, se for o início de um novo mês ele vai
-        pedir um novo input de dinheiro para o mês, vai debitar a fatura do cartão no total e vai salvar os dados no banco de dados
-        */
-        //launchMonthly();
 
         // inicializando o menu lateral
         mDrawerList = (ListView)findViewById(R.id.navList);
@@ -117,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences getPrefs = PreferenceManager
                         .getDefaultSharedPreferences(getBaseContext());
                 //  Create a new boolean and preference and set it to true
-                boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
+                boolean isMonthStart = getPrefs.getBoolean("monthStart", true);
                 //  If the activity has never started before...
-                if (isFirstStart) {
+                if (isMonthStart) {
                     //  Launch app intro
                     final Intent i = new Intent(MainActivity.this, IntroActivity.class);
                     runOnUiThread(new Runnable() {
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     //  Make a new preferences editor
                     SharedPreferences.Editor e = getPrefs.edit();
                     //  Edit preference to make it false because we don't want this to run again
-                    e.putBoolean("firstStart", false);
+                    e.putBoolean("monthStart", false);
                     //  Apply changes
                     e.apply();
                 }
@@ -268,5 +268,9 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat horaFormatada = new SimpleDateFormat("HH:mm:ss");
         String hora_atual = horaFormatada.format(calendar.getTime());
         return hora_atual;
+    }
+    private Intent chamarAviso(){
+        final Intent i = new Intent(this,AvisoActivity.class);
+        return i;
     }
 }

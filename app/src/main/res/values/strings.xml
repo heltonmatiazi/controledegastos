@@ -93,4 +93,7 @@
     <string name="mes_nov">NOVEMBRO</string>
     <string name="mes_dez">DEZEMBRO</string>
     <string name="btn_listar">LISTAR</string>
+    <string name="title_activity_aviso">AvisoActivity</string>
+    <string name="aviso_texto_1">Olá!</string>
+    <string name="aviso_texto_2">Parece que a data de seu dispositivo foi alterada. Precisamos conferir se os dados continuam corretos. Só vai levar um minuto.</string>
 </resources>

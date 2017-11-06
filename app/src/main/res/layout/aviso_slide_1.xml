@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+        style="@style/relativeTextView"
+        android:text="@string/ol"
+        android:textSize="24sp"
+        android:layout_marginTop="100sp"
+        android:id="@+id/aviso_slide__titulo_1"/>
+    <TextView
+        style="@style/relativeTextView"
+        android:text="@string/parece_que_a_data_de_seu_dispositivo_foi_alterada_vamos_conferir_se_seus_dados_continuam_corretos_s_vai_levar_um_minuto"
+        android:textSize="24sp"
+        android:layout_marginTop="100sp"
+        android:id="@+id/aviso_slide_texto_1"
+
+        />
+</LinearLayout>

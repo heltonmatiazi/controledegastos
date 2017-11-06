@@ -122,7 +122,6 @@ public class RetornoDao{
     }
 
     private String retornarNomeMes(Integer mes){
-        //String nome = new String();
         if (mes == 1) {
             nome = "JANEIRO";//TODO adicionar os nomes do arquivo de String
         }else if(mes == 2){
@@ -148,47 +147,6 @@ public class RetornoDao{
         }else if(mes == 12){
             nome = "DEZEMBRO";//TODO adicionar os nomes do arquivo de String
         }
-        /*
-        switch (mes){
-            case 1:
-                nome = "JANEIRO";//TODO adicionar os nomes do arquivo de String
-            break;
-            case 2:
-                nome = "FEVEREIRO";//TODO adicionar os nomes do arquivo de String
-                break;
-            case 3:
-                nome = "MARÇO";//TODO adicionar os nomes do arquivo de String
-                break;
-            case 4:
-                nome = "ABRIL";//TODO adicionar os nomes do arquivo de String
-                break;
-            case 5:
-                nome = "MAIO";//TODO adicionar os nomes do arquivo de String
-                break;
-            case 6:
-                nome = "JUNHO";//TODO adicionar os nomes do arquivo de String
-                break;
-            case 7:
-                nome = "JULHO";//TODO adicionar os nomes do arquivo de String
-                break;
-            case 8:
-                nome = "AGOSTO";//TODO adicionar os nomes do arquivo de String
-                break;
-            case 9:
-                nome = "SETEMBRO";//TODO adicionar os nomes do arquivo de String
-                break;
-            case 10:
-                nome = "OUTUBRO";//TODO adicionar os nomes do arquivo de String
-                break;
-            case 11:
-                nome = "NOVEMBRO";//TODO adicionar os nomes do arquivo de String
-                break;
-            case 12:
-                nome = "DEZEMBRO";//TODO adicionar os nomes do arquivo de String
-                break;
-            default:
-                break;
-        }*/
         return nome;
     }
 
