@@ -42,8 +42,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // dar um jeito de invocar o warning daqui
+        // dar um jeito de invocar o aviso activity aqui daqui
         timeChange.onReceive(this,getIntent());
+
+
         //TODO Pega o dia e a hora atual do dispositivo
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
