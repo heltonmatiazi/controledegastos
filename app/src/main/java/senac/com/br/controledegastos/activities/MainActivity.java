@@ -18,19 +18,39 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import senac.com.br.controledegastos.R;
 import senac.com.br.controledegastos.model.Gasto;
+import senac.com.br.controledegastos.model.Mes;
+import senac.com.br.controledegastos.util.RetornoDao;
 
 public class MainActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
-    private String mActivityTitle;
+    private String mActivityTitle, data, hora;
+    private RetornoDao r;
+    private Mes mes;
+    private boolean confirmarMesAtual;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //TODO Pega o dia e a hora atual do dispositivo
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        data = dataAtual(calendar);
+        hora = horaAtual(calendar);
+        mes = new Mes();
+        mes = r.mesAtual(this);
+        confirmarMesAtual = r.verificarMesAtual(mes, data);
+        if(confirmarMesAtual == false){
+
+        }
         /* testando o tutorial - esse intent sempre vai lançar on start*/
         Intent j = new Intent(this,TutorialActivity.class);
         startActivity(j);
@@ -54,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
        }
+
 /*esse metodo vai controlar o inicio e fim de mês*/
 //TODO implementar logica de controle de dadas - validar isso vai ser uma bosta
     private void launchMonthly(){
@@ -85,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
         });
         // Start the thread
         t.start();
-    };
+    }
+
     // esse método vai lançar o tutorial na primeira vez que o usuário utilizar o aplicativo
     private void launchTutorial(){
         Thread t = new Thread(new Runnable() {
@@ -116,10 +138,13 @@ public class MainActivity extends AppCompatActivity {
         });
         // Start the thread
         t.start();
-    };
+    }
+
     private void addDrawerItems() {
-        String[] opcoesArray = { "Adicionar Novo Item no Orcamento", "Visualizar Itens do Orcamento",
-                "Editar Valor de Orçamento", "Adicionar Novo Gasto", "Visualizar Gastos", "Gerar Relatório" };
+        String[] opcoesArray = { getResources().getString(R.string.drawer_novoItem),
+                getResources().getString(R.string.drawer_verItem), getResources().getString(R.string.drawer_editar),
+                getResources().getString(R.string.drawer_novoGasto), getResources().getString(R.string.drawer_verGastos),
+                getResources().getString(R.string.drawer_gerar)};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opcoesArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -136,9 +161,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Opção 2 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-                        // adicionar novo item no orçamento
-                        Toast.makeText(MainActivity.this, "Opção 3 selecionada com sucesso", Toast.LENGTH_SHORT).show();
-                        break;
+                        // editar o valor da renda mensal
+                        EditarRenda();
                     case 3:
                         //Adiciona novo gasto
                         ;AdicionarGasto();
@@ -157,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
             /** Called when a drawer has settled in a completely open state. */
@@ -175,23 +200,27 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -223,6 +252,21 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this,ListaDeGastosActivity.class);
         startActivity(i);
     }
+
+    public void EditarRenda(){
+        Intent i = new Intent(this, EditarRendaActivity.class);
+        startActivity(i);
+    }
+
+    private String dataAtual(Calendar calendar){
+        SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+        String data_atual = dataFormatada.format(calendar.getTime());
+        return data_atual;
+    }
+
+    private String horaAtual(Calendar calendar){
+        SimpleDateFormat horaFormatada = new SimpleDateFormat("HH:mm:ss");
+        String hora_atual = horaFormatada.format(calendar.getTime());
+        return hora_atual;
+    }
 }
-
-

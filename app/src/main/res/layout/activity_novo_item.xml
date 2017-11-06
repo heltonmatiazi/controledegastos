@@ -25,41 +25,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
 
-        <RadioGroup
+        <CheckBox
+            android:id="@+id/rbDiversas"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:orientation="horizontal">
+            android:layout_weight="4"
+            android:layout_marginEnd="2dp"
+            android:text="@string/rb_multipla" />
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rb_unica"
-                android:layout_marginEnd="2dp"
-                android:layout_marginStart="2dp"
-                android:id="@+id/rbUnica"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rb_multipla"
-                android:layout_marginEnd="2dp"
-                android:id="@+id/rbDiversas"/>
-
-        </RadioGroup>
 
         <TextView
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textAlignment="center"
             android:drawableStart="@android:drawable/ic_menu_help"
+            android:onClick="mostrar_esconder_ajuda"
             android:text="@string/tv_ajuda"
-            android:onClick="mostrar_esconder"/>
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -67,7 +54,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:id="@+id/linear_ajuda"
-        android:layout_marginBottom="2dp">
+        android:orientation="vertical"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -75,9 +65,43 @@
             android:textStyle="bold"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
-            android:text="@string/texto_ajuda"
+            android:text="@string/texto_ajuda0"
             android:onClick="mostrar_esconder"
-            android:layout_marginBottom="2dp"/>
+            android:layout_marginBottom="2dp"
+            style="@style/txt_help"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="@string/texto_ajuda1"
+            android:onClick="mostrar_esconder"
+            android:layout_marginBottom="2dp"
+            style="@style/txt_help"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="@string/texto_ajuda2"
+            android:onClick="mostrar_esconder"
+            android:layout_marginBottom="2dp"
+            style="@style/txt_help"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="@string/texto_ajuda3"
+            android:onClick="mostrar_esconder"
+            android:layout_marginBottom="2dp"
+            style="@style/txt_help"/>
 
     </LinearLayout>
 
@@ -85,7 +109,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/valordoGasto"
-        android:layout_marginBottom="2dp"/>
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -93,18 +121,26 @@
         android:hint="@string/valorGasto"
         android:id="@+id/valorItem"
         android:inputType="numberDecimal"
-        android:layout_marginBottom="2dp"/>
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/salvar"
-        android:onClick="salvarItem"/>
+        android:onClick="salvarItem"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_voltar"
-        android:onClick="voltar"/>
+        android:onClick="voltar"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
 
 </LinearLayout>

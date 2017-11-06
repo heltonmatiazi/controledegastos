@@ -6,64 +6,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f8fac8"
     tools:context="senac.com.br.controledegastos.activities.NovoGastoActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nomedoGasto"/>
+        android:text="@string/nomedoGasto"
+        style="@style/txt"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/nomeGasto"
-        android:id="@+id/nomeGasto"/>
+        android:id="@+id/nomeGasto"
+        style="@style/edit"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/localdoGasto"/>
+        android:text="@string/localdoGasto"
+        style="@style/txt"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/localGasto"
-        android:id="@+id/localGasto"/>
+        android:id="@+id/localGasto"
+        style="@style/edit"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hintFormaPagto"/>
+        android:text="@string/hintFormaPagto"
+        style="@style/txt"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
+
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/SpinnerFormaPagamento"
-        android:entries="@array/spinnerItems"></Spinner>
+        android:entries="@array/spinnerItems"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp">
+    </Spinner>
+
   <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:id="@+id/valorGasto"
-      android:text="@string/valordoGasto"/>
+      android:text="@string/valordoGasto"
+      style="@style/txt"
+      android:layout_marginBottom="1dp"
+      android:layout_marginLeft="4dp"
+      android:layout_marginRight="4dp"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/valorGasto"
-        android:inputType="numberDecimal"/>
+        style="@style/edit"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
+
    <TextView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:text="@string/dataGasto"/>
+       android:text="@string/dataGasto"
+       style="@style/txt"
+       android:layout_marginBottom="1dp"
+       android:layout_marginLeft="4dp"
+       android:layout_marginRight="4dp"/>
+
    <TextView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:text="@string/tipo_de_gasto"/>
+       android:text="@string/tipo_de_gasto"
+       style="@style/txt"
+       android:layout_marginBottom="1dp"
+       android:layout_marginLeft="4dp"
+       android:layout_marginRight="4dp"/>
+
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/orcamentoSpinner"></Spinner>
+        android:id="@+id/orcamentoSpinner"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp">
+    </Spinner>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/capturaData"/>
+        android:id="@+id/capturaData"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/salvar"
-        android:onClick="salvarGasto"/>
+        android:onClick="salvarGasto"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        style="@style/button"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_voltar"
+        android:onClick="voltar"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        style="@style/button"/>
+
 </LinearLayout>

@@ -9,9 +9,7 @@ import com.github.paolorotolo.appintro.AppIntro;
 import senac.com.br.controledegastos.R;
 import senac.com.br.controledegastos.components.SampleSlide;
 
-/**
- * Created by helton on 14/09/2017.
- */
+//Created by helton on 14/09/2017.
 
 public class TutorialActivity extends AppIntro {
     @Override

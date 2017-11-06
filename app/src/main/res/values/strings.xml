@@ -43,10 +43,12 @@
     <string name="rb_unica">Entrada Única</string>
     <string name="rb_multipla">Entradas Múltiplas</string>
     <string name="tv_ajuda">Ajuda</string>
-    <string name="texto_ajuda">Entrada Única: quando for um item de orçamento de consumo ou que tenha apenas um pagamento.
-        Ex.: água, luz, telefone. Entradas Múltiplas: quando for um item de orçamento que seja um gasto especifico que
+    <string name="texto_ajuda0">Entradas Múltiplas:</string>
+    <string name="texto_ajuda1">Quando for um item de orçamento que seja um gasto especifico que
         o usuário programa uma quantia a ser gasta durante o mês. Ex.: almoço, cinema, pequenos gastos ou gastos
-        diversos. Pequenos Gastos ou Gastos Diversos: no caso de um item de orçamento que o usuário não tenha um
+        diversos.</string>
+    <string name="texto_ajuda2">Pequenos Gastos ou Gastos Diversos:</string>
+    <string name="texto_ajuda3">No caso de um item de orçamento que o usuário não tenha um
         valor inicial para o orçamento, ou seja, o usuário apenas quer registrar um gasto que não se enquadra nos
         outro itens, e não é necessário declarar um valor. Nestes casos o usuário deve somente declarar zero (0,00)
         no valor do item.</string>
@@ -61,4 +63,34 @@
     <string name="toast_salvo">Salvo com sucesso.</string>
     <string name="toast_atualizado">Atualizado com sucesso</string>
     <string name="toast_erro">ERRO.</string>
+    <string name="drawer_novoItem">Adicionar Novo Item no Orcamento</string>
+    <string name="drawer_verItem">Visualizar Itens do Orcamento</string>
+    <string name="drawer_editar">Editar Valor da Renda Mensal</string>
+    <string name="drawer_novoGasto">Adicionar Novo Gasto</string>
+    <string name="drawer_verGastos">Visualizar Gastos</string>
+    <string name="drawer_gerar">Gerar Relatório</string>
+    <string name="cifrao">R$</string>
+    <string name="lv_valor">Valor:</string>
+    <string name="lv_saldo">Saldo:</string>
+    <string name="to_string_nome">Nome:</string>
+    <string name="to_string_valor">Valor:</string>
+    <string name="to_string_data">Data:</string>
+    <string name="to_string_forma">Forma de Pagamento:</string>
+    <string name="to_string_local">Local:</string>
+    <string name="tv_renda">Editar Renda:</string>
+    <string name="hint_renda">Insira sua renda</string>
+    <string name="tv_notificacao">Entre o valor para ser notificado:</string>
+    <string name="mes_jan">JANEIRO</string>
+    <string name="mes_fev">FEVEREIRO</string>
+    <string name="mes_mar">MARÇO</string>
+    <string name="mes_abr">ABRIL</string>
+    <string name="mes_mai">MAIO</string>
+    <string name="mes_jun">JUNHO</string>
+    <string name="mes_jul">JULHO</string>
+    <string name="mes_ago">AGOSTO</string>
+    <string name="mes_set">SETEMBRO</string>
+    <string name="mes_out">OUTUBRO</string>
+    <string name="mes_nov">NOVEMBRO</string>
+    <string name="mes_dez">DEZEMBRO</string>
+    <string name="btn_listar">LISTAR</string>
 </resources>

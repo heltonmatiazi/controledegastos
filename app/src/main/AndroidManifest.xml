@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="senac.com.br.controledegastos">
+    package="senac.com.br.controledegastos">
 
     <application
         android:allowBackup="true"
@@ -10,17 +10,18 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activities.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.NovoGastoActivity">
-        </activity>
-        <activity android:name=".activities.ListaDeGastosActivity">
-        </activity>
-        <activity android:name=".activities.IntroActivity"></activity>
-        <activity android:name=".activities.TutorialActivity"></activity>
+        <activity android:name=".activities.NovoGastoActivity" />
+        <activity android:name=".activities.NovoItemActivity" />
+        <activity android:name=".activities.ListaDeGastosActivity" />
+        <activity android:name=".activities.IntroActivity" />
+        <activity android:name=".activities.TutorialActivity" />
+        <activity android:name=".activities.EditarRendaActivity" />
+        <activity android:name=".activities.ListaDeItensActivity"></activity>
     </application>
 
 </manifest>

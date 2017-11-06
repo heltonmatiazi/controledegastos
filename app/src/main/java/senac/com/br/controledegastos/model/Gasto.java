@@ -2,29 +2,30 @@ package senac.com.br.controledegastos.model;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import java.io.Serializable;
 import java.util.Date;
 
 //Created by helton on 31/08/2017.
 
 @DatabaseTable(tableName = "gasto")
-public class Gasto {
+public class Gasto implements Serializable {
 
     @DatabaseField(allowGeneratedIdInsert = true, generatedId = true)
     private Integer id;
 
-    @DatabaseField(canBeNull = true)
+    @DatabaseField
     private String nome;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField
     private String local;
 
-    @DatabaseField(canBeNull = false)
-    private Enum formadePagamento;
+    @DatabaseField
+    private String formadePagamento;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField
     private Float valor;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField
     private Date date;
 
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
@@ -39,7 +40,7 @@ public class Gasto {
         this.id = id;
     }
 
-    public Gasto(Integer id, String nome, String local, Enum formadePagamento, Float valor, Date date, Orcamento orcamento) {
+    public Gasto(Integer id, String nome, String local, String formadePagamento, Float valor, Date date, Orcamento orcamento) {
         this.id = id;
         this.nome = nome;
         this.local = local;
@@ -73,11 +74,11 @@ public class Gasto {
         this.local = local;
     }
 
-    public Enum getFormadePagamento() {
+    public String getFormadePagamento() {
         return formadePagamento;
     }
 
-    public void setFormadePagamento(Enum formadePagamento) {
+    public void setFormadePagamento(String formadePagamento) {
         this.formadePagamento = formadePagamento;
     }
 
@@ -97,15 +98,12 @@ public class Gasto {
         this.date = date;
     }
 
-    //Arrumar o toString
-    @Override
-    public String toString() {
-        return "Gasto{" +
-                "nome='" + nome + '\'' +
-                ", local='" + local + '\'' +
-                ", formadePagamento=" + formadePagamento +
-                ", valor=" + valor +
-                ", date=" + date +
-                '}';
+    public Orcamento getOrcamento() {
+        return orcamento;
     }
+
+    public void setOrcamento(Orcamento orcamento) {
+        this.orcamento = orcamento;
+    }
+
 }

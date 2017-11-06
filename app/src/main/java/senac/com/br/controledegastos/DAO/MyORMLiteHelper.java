@@ -81,5 +81,4 @@ public class MyORMLiteHelper extends OrmLiteSqliteOpenHelper {
         }
         return  gastoDao;
     }
-
 }

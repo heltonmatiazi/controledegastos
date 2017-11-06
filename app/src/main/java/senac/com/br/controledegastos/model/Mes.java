@@ -2,28 +2,38 @@ package senac.com.br.controledegastos.model;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
+import java.io.Serializable;
 import java.util.Collection;
 
-/**
- * Created by helton on 31/08/2017.
- */
+//Created by helton on 31/08/2017.
 
-public class Mes {
+@DatabaseTable(tableName = "mes")
+public class Mes implements Serializable{
 
     @DatabaseField(allowGeneratedIdInsert = true, generatedId = true)
     private Integer id;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField
     private String nome;
+
+    @DatabaseField
+    private String ano;
 
     @ForeignCollectionField
     private Collection<Orcamento> listaOrcamentos;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField
     private Float cartaoMesAtual;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField
     private Float cartaoMesAnterior;
+
+    @DatabaseField
+    private Float renda;
+
+    @DatabaseField
+    private boolean mesAtual;
 
     // initializing empty constructor;
     public Mes(){
@@ -34,12 +44,30 @@ public class Mes {
         this.id = id;
     }
 
-    public Mes(Integer id, String nome, Collection<Orcamento> listaOrcamentos, Float cartaoMesAtual, Float cartaoMesAnterior) {
+    public Mes(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
+    }
+
+    public Mes(Integer id, String nome, String ano, Float cartaoMesAtual, Float cartaoMesAnterior, Float renda, boolean mesAtual) {
+        this.id = id;
+        this.nome = nome;
+        this.ano = ano;
+        this.cartaoMesAtual = cartaoMesAtual;
+        this.cartaoMesAnterior = cartaoMesAnterior;
+        this.renda = renda;
+        this.mesAtual = mesAtual;
+    }
+
+    public Mes(Integer id, String nome, String ano, Collection<Orcamento> listaOrcamentos, Float cartaoMesAtual, Float cartaoMesAnterior, Float renda, boolean mesAtual) {
+        this.id = id;
+        this.nome = nome;
+        this.ano = ano;
         this.listaOrcamentos = listaOrcamentos;
         this.cartaoMesAtual = cartaoMesAtual;
         this.cartaoMesAnterior = cartaoMesAnterior;
+        this.renda = renda;
+        this.mesAtual = mesAtual;
     }
 
     public Integer getId() {
@@ -66,6 +94,22 @@ public class Mes {
         this.listaOrcamentos = listaOrcamentos;
     }
 
+    public String getAno() {
+        return ano;
+    }
+
+    public void setAno(String ano) {
+        this.ano = ano;
+    }
+
+    public Float getRenda() {
+        return renda;
+    }
+
+    public void setRenda(Float renda) {
+        this.renda = renda;
+    }
+
     public Float getCartaoMesAtual() {
         return cartaoMesAtual;
     }
@@ -82,14 +126,12 @@ public class Mes {
         this.cartaoMesAnterior = cartaoMesAnterior;
     }
 
-    @Override
-    public String toString() {
-        return "Mes{" +
-                ", nome='" + nome + '\'' +
-                ", listaOrcamentos=" + listaOrcamentos +
-                ", cartaoMesAtual=" + cartaoMesAtual +
-                ", cartaoMesAnterior=" + cartaoMesAnterior +
-                '}';
+    public boolean isMesAtual() {
+        return mesAtual;
+    }
+
+    public void setMesAtual(boolean mesAtual) {
+        this.mesAtual = mesAtual;
     }
 
 }

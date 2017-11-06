@@ -2,28 +2,29 @@ package senac.com.br.controledegastos.model;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
+import java.io.Serializable;
 import java.util.Collection;
 
-/**
- * Created by helton on 31/08/2017.
- */
+//Created by helton on 31/08/2017.
 
-public class Orcamento {
+@DatabaseTable(tableName = "orcamento")
+public class Orcamento implements Serializable {
 
     @DatabaseField(allowGeneratedIdInsert = true, generatedId = true)
     private Integer id;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField
     private String nome;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField
     private Float saldo;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField
     private Float valorInicial;
 
-    @DatabaseField(canBeNull = false)
-    private boolean brench;
+    @DatabaseField
+    private boolean gastoMultiplo;
 
     @ForeignCollectionField
     private Collection<Gasto> listaDeGastos;
@@ -40,19 +41,19 @@ public class Orcamento {
 
     }
 
-    public Orcamento(String nome, Float saldo, Float valorInicial, boolean brench, Mes mes) {
+    public Orcamento(String nome, Float saldo, Float valorInicial, boolean gastoMultiplo, Mes mes) {
         this.nome = nome;
         this.saldo = saldo;
         this.valorInicial = valorInicial;
-        this.brench = brench;
+        this.gastoMultiplo = gastoMultiplo;
         this.mes = mes;
     }
 
-    public Orcamento(String nome, Float saldo, Float valorInicial, boolean brench, Mes mes, Collection<Gasto> listaDeGastos) {
+    public Orcamento(String nome, Float saldo, Float valorInicial, boolean gastoMultiplo, Mes mes, Collection<Gasto> listaDeGastos) {
         this.nome = nome;
         this.saldo = saldo;
         this.valorInicial = valorInicial;
-        this.brench = brench;
+        this.gastoMultiplo = gastoMultiplo;
         this.mes = mes;
         this.listaDeGastos = listaDeGastos;
     }
@@ -89,12 +90,12 @@ public class Orcamento {
         this.valorInicial = valorInicial;
     }
 
-    public boolean isBrench() {
-        return brench;
+    public boolean isGastoMultiplo() {
+        return gastoMultiplo;
     }
 
-    public void setBrench(boolean brench) {
-        this.brench = brench;
+    public void setGastoMultiplo(boolean gastoMultiplo) {
+        this.gastoMultiplo = gastoMultiplo;
     }
 
     public Mes getMes() {
@@ -113,15 +114,4 @@ public class Orcamento {
         this.listaDeGastos = listaDeGastos;
     }
 
-    //Arrumar o toString
-    @Override
-    public String toString() {
-        return "Item de Orcamento{" +
-                ", nome='" + nome + '\'' +
-                ", saldo=" + saldo +
-                ", valorInicial=" + valorInicial +
-                ", brench=" + brench +
-                ", listaDeGastos=" + listaDeGastos +
-                '}';
-    }
 }
