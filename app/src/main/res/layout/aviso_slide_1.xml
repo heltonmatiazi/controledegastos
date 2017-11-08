@@ -5,13 +5,13 @@
               android:layout_height="match_parent">
     <TextView
         style="@style/relativeTextView"
-        android:text="@string/ol"
+        android:text="@string/aviso_texto_1"
         android:textSize="24sp"
         android:layout_marginTop="100sp"
         android:id="@+id/aviso_slide__titulo_1"/>
     <TextView
         style="@style/relativeTextView"
-        android:text="@string/parece_que_a_data_de_seu_dispositivo_foi_alterada_vamos_conferir_se_seus_dados_continuam_corretos_s_vai_levar_um_minuto"
+        android:text="@string/aviso_texto_2"
         android:textSize="24sp"
         android:layout_marginTop="100sp"
         android:id="@+id/aviso_slide_texto_1"

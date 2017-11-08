@@ -20,7 +20,6 @@ public class TimeChangedReceiver extends BroadcastReceiver{
         Toast.makeText(context, "time change " + intent.getAction(), Toast.LENGTH_SHORT).show();
         // essa activity vai mostrar um warning para o usuário caso a data do dispositivo seja alterada manualmente
         // ou por mudança de timezone
-
     }
 
 }

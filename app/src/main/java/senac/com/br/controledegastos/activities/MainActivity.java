@@ -1,9 +1,13 @@
 package senac.com.br.controledegastos.activities;
 
+import android.app.AlarmManager;
 import android.app.FragmentManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -43,9 +47,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // dar um jeito de invocar o aviso activity aqui daqui
-        timeChange.onReceive(this,getIntent());
 
+        Intent it = new Intent(this,TimeChangedReceiver.class);
 
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,10,it,PendingIntent.FLAG_UPDATE_CURRENT);
+        long futureInMillis = SystemClock.elapsedRealtime();
+        AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarm.setRepeating(AlarmManager.ELAPSED_REALTIME,futureInMillis,5000,pendingIntent);
         //TODO Pega o dia e a hora atual do dispositivo
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
