@@ -31,6 +31,8 @@ import senac.com.br.controledegastos.model.Mes;
 import senac.com.br.controledegastos.util.RetornoDao;
 import senac.com.br.controledegastos.util.TimeChangedReceiver;
 
+import static java.lang.Integer.parseInt;
+
 public class MainActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
@@ -46,15 +48,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // dar um jeito de invocar o aviso activity aqui daqui
+        // inicializando o broadcast receiver para detectar mudanças de hora no dispositivo
         Intent it = new Intent(this,TimeChangedReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,10,it,PendingIntent.FLAG_UPDATE_CURRENT);
         long futureInMillis = SystemClock.elapsedRealtime();
         AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         alarm.setRepeating(AlarmManager.ELAPSED_REALTIME,futureInMillis,5000,pendingIntent);
-
-
-        //TODO Pega o dia e a hora atual do dispositivo
+        //inicialiando o calendario principal
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         data = dataAtual(calendar);
@@ -62,19 +62,12 @@ public class MainActivity extends AppCompatActivity {
         mes = new Mes();
         mes = r.mesAtual(this);
         confirmarMesAtual = r.verificarMesAtual(mes, data);
-        if(confirmarMesAtual == false){
-        // lançar activity de novo mês
-            //launchMonthly();
-        }
-        /* testando o tutorial - esse intent sempre vai lançar on start*/
-        Intent j = new Intent(this,TutorialActivity.class);
-        startActivity(j);
-       // launchTutorial();
-
-        // para o ambiente de testes é necessário inicializar os slides de controle de mês todas as vezes que o aplicativo for lançado
-        //Intent i = new Intent(this,IntroActivity.class);
-         //startActivity(i);
-
+        // lança o tutorial no primeiro acesso
+        launchTutorial();
+        // o metodo 'primeiroDia' retorna true caso o numero do dia seja igual a 1.
+        if(primeiroDia(calendar) == true){
+            launchMonthly();
+        };
         // inicializando o menu lateral
         mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -84,72 +77,50 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
        }
-
-/*esse metodo vai controlar o inicio e fim de mês*/
-//TODO implementar logica de controle de dadas - validar isso vai ser uma bosta
     private void launchMonthly(){
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                //  Initialize SharedPreferences
                 SharedPreferences getPrefs = PreferenceManager
                         .getDefaultSharedPreferences(getBaseContext());
-                //  Create a new boolean and preference and set it to true
-                boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
-                //  If the activity has never started before...
-                if (isFirstStart) {
-                    //  Launch app intro
+                boolean isFirstDayOfMonth = getPrefs.getBoolean("primeiroDia", true);
+                if (isFirstDayOfMonth) {
                     final Intent i = new Intent(MainActivity.this, IntroActivity.class);
                     runOnUiThread(new Runnable() {
                         @Override public void run() {
                             startActivity(i);
                         }
                     });
-                    //  Make a new preferences editor
-                    SharedPreferences.Editor e = getPrefs.edit();
-                    //  Edit preference to make it false because we don't want this to run again
-                    e.putBoolean("firstStart", false);
-                    //  Apply changes
-                    e.apply();
+                    SharedPreferences.Editor editor = getPrefs.edit();
+                    editor.putBoolean("primeiroDia", false);
+                    editor.apply();
                 }
             }
         });
-        // Start the thread
         t.start();
     }
-
-    // esse método vai lançar o tutorial na primeira vez que o usuário utilizar o aplicativo
     private void launchTutorial(){
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                //  Initialize SharedPreferences
                 SharedPreferences getPrefs = PreferenceManager
                         .getDefaultSharedPreferences(getBaseContext());
-                //  Create a new boolean and preference and set it to true
-                boolean isMonthStart = getPrefs.getBoolean("monthStart", true);
-                //  If the activity has never started before...
+                boolean isMonthStart = getPrefs.getBoolean("primeiroAcesso", true);
                 if (isMonthStart) {
-                    //  Launch app intro
-                    final Intent i = new Intent(MainActivity.this, IntroActivity.class);
+                    final Intent i = new Intent(MainActivity.this, TutorialActivity.class);
                     runOnUiThread(new Runnable() {
                         @Override public void run() {
                             startActivity(i);
                         }
                     });
-                    //  Make a new preferences editor
                     SharedPreferences.Editor e = getPrefs.edit();
-                    //  Edit preference to make it false because we don't want this to run again
-                    e.putBoolean("monthStart", false);
-                    //  Apply changes
+                    e.putBoolean("primeiroAcesso", false);
                     e.apply();
                 }
             }
         });
-        // Start the thread
         t.start();
     }
-
     private void addDrawerItems() {
         String[] opcoesArray = { getResources().getString(R.string.drawer_novoItem),
                 getResources().getString(R.string.drawer_verItem), getResources().getString(R.string.drawer_editar),
@@ -157,32 +128,25 @@ public class MainActivity extends AppCompatActivity {
                 getResources().getString(R.string.drawer_gerar)};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opcoesArray);
         mDrawerList.setAdapter(mAdapter);
-
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 0:
-                        //Adicionar um item de orçamento
                         AdicionarItem();
                         break;
                     case 1:
-                        // visualizar itens do orçamento
                         Toast.makeText(MainActivity.this, "Opção 2 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-                        // editar o valor da renda mensal
                         EditarRenda();
                     case 3:
-                        //Adiciona novo gasto
-                        ;AdicionarGasto();
+                        AdicionarGasto();
                         break;
                     case 4:
-                        // visualizar gastos
                         Toast.makeText(MainActivity.this, "Opção 5 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                         break;
                     case 5:
-                        // gerar relatório
                         Toast.makeText(MainActivity.this, "Opção 6 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -194,13 +158,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-            /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getSupportActionBar().setTitle("Menu");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
-            /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 getSupportActionBar().setTitle(mActivityTitle);
@@ -210,38 +172,27 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-        // Activate the navigation drawer toggle
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -279,8 +230,15 @@ public class MainActivity extends AppCompatActivity {
         String hora_atual = horaFormatada.format(calendar.getTime());
         return hora_atual;
     }
-    private Intent chamarAviso(){
-        final Intent i = new Intent(this,AvisoActivity.class);
-        return i;
-    }
+
+    private Boolean primeiroDia(Calendar calendar){
+        SimpleDateFormat diaFormatado = new SimpleDateFormat("dd");
+        String diaAtual = diaFormatado.format(calendar.getTime());
+        Integer dia = parseInt(diaAtual);
+        if(dia == 1){
+            return true;
+        }else{
+            return false;
+        }
+    };
 }
