@@ -7,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by helton on 13/09/2017.
- */
+//Created by Helton Matiazi on 13/09/2017.
 
 public class SampleSlide extends Fragment {
 

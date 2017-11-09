@@ -1,7 +1,5 @@
 package senac.com.br.controledegastos.model;
 
-//Created by Carlos Lohmeyer on 28/09/2017.
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -12,6 +10,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import senac.com.br.controledegastos.R;
 
+//Created by Carlos Lohmeyer on 28/09/2017.
+
 public class AdapterLvOrcamento extends BaseAdapter {
 
     private LayoutInflater inflater;
@@ -19,9 +19,9 @@ public class AdapterLvOrcamento extends BaseAdapter {
     private ArrayList<Orcamento> orcamentos;
 
     public AdapterLvOrcamento(Context context, ArrayList<Orcamento> orcamentos){
-        //Orçamentos que preencheram o ListView
+        //Orcamentos que preencheram o ListView
         this.orcamentos = orcamentos;
-        //Responsavel por pegar o Layout do orçamento
+        //Responsavel por pegar o Layout do orcamento
         inflater = LayoutInflater.from(context);
     }
 

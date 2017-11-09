@@ -20,8 +20,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -32,7 +34,10 @@ import senac.com.br.controledegastos.util.RetornoDao;
 import senac.com.br.controledegastos.util.TimeChangedReceiver;
 
 import static java.lang.Integer.parseInt;
+import static senac.com.br.controledegastos.R.id.textview1;
 
+
+@SuppressWarnings("MissingPermission")
 public class MainActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
@@ -43,25 +48,41 @@ public class MainActivity extends AppCompatActivity {
     private Mes mes;
     private boolean confirmarMesAtual;
     private TimeChangedReceiver timeChange;
+    private TextView textview1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // testando banco de dados
+        try {
+            System.out.println("ANTES DE INSERIR OS OBJETOS DE MES");
+            r.inserirMesParaTeste(this);
+            System.out.println("DEPOIS DE INSERIR OS OBJETOS DE MES");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         // inicializando o broadcast receiver para detectar mudanças de hora no dispositivo
         Intent it = new Intent(this,TimeChangedReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,10,it,PendingIntent.FLAG_UPDATE_CURRENT);
         long futureInMillis = SystemClock.elapsedRealtime();
         AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         alarm.setRepeating(AlarmManager.ELAPSED_REALTIME,futureInMillis,5000,pendingIntent);
-        //inicialiando o calendario principal
+
+        //TODO Pega o dia e a hora atual do dispositivo
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         data = dataAtual(calendar);
         hora = horaAtual(calendar);
         mes = new Mes();
-        mes = r.mesAtual(this);
-        confirmarMesAtual = r.verificarMesAtual(mes, data);
+        mes = r.retornaMesAtual(this);
+        confirmarMesAtual = r.verificarMesAtual(mes, data, this);
+
+        textview1 = (TextView) findViewById(R.id.textview1);
+        textview1.setText(mes.getNome()+" / "+mes.getAno());
+
         // lança o tutorial no primeiro acesso
         launchTutorial();
         // o metodo 'primeiroDia' retorna true caso o numero do dia seja igual a 1.
@@ -131,24 +152,30 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
-                    case 0:
-                        AdicionarItem();
-                        break;
-                    case 1:
-                        Toast.makeText(MainActivity.this, "Opção 2 selecionada com sucesso", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        EditarRenda();
-                    case 3:
-                        AdicionarGasto();
-                        break;
-                    case 4:
-                        Toast.makeText(MainActivity.this, "Opção 5 selecionada com sucesso", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 5:
-                        Toast.makeText(MainActivity.this, "Opção 6 selecionada com sucesso", Toast.LENGTH_SHORT).show();
-                        break;
+                   switch (position){
+                        case 0:
+                            //Adicionar um item de orçamento
+                            AdicionarItem();
+                            break;
+                        case 1:
+                            // visualizar itens do orçamento
+                            VisualizarItens();
+                            break;
+                        case 2:
+                            // editar o valor da renda mensal
+                            EditarRenda();
+                        case 3:
+                            //Adiciona novo gasto
+                            ;AdicionarGasto();
+                            break;
+                        case 4:
+                            // visualizar gastos
+                            VisualizarGastos();
+                            break;
+                        case 5:
+                            // gerar relatório
+                            Toast.makeText(MainActivity.this, "Opção 6 selecionada com sucesso", Toast.LENGTH_SHORT).show();
+                            break;
                 }
 
 
@@ -211,6 +238,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void VisualizarGastos(){
         Intent i = new Intent(this,ListaDeGastosActivity.class);
+        startActivity(i);
+    }
+
+    public void VisualizarItens(){
+        Intent i = new Intent(this,ListaDeItensDeOrcamentoActivity.class);
         startActivity(i);
     }
 

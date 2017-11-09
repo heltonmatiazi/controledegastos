@@ -6,7 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import java.io.Serializable;
 import java.util.Collection;
 
-//Created by helton on 31/08/2017.
+//Created by Helton Matiazi on 31/08/2017.
 
 @DatabaseTable(tableName = "orcamento")
 public class Orcamento implements Serializable {
@@ -38,7 +38,7 @@ public class Orcamento implements Serializable {
     };
 
     public Orcamento(Integer id){
-
+        this.id = id;
     }
 
     public Orcamento(String nome, Float saldo, Float valorInicial, boolean gastoMultiplo, Mes mes) {
@@ -49,7 +49,17 @@ public class Orcamento implements Serializable {
         this.mes = mes;
     }
 
-    public Orcamento(String nome, Float saldo, Float valorInicial, boolean gastoMultiplo, Mes mes, Collection<Gasto> listaDeGastos) {
+    public Orcamento(Integer id, String nome, Float saldo, Float valorInicial, boolean gastoMultiplo, Mes mes) {
+        this.id = id;
+        this.nome = nome;
+        this.saldo = saldo;
+        this.valorInicial = valorInicial;
+        this.gastoMultiplo = gastoMultiplo;
+        this.mes = mes;
+    }
+
+    public Orcamento(Integer id, String nome, Float saldo, Float valorInicial, boolean gastoMultiplo, Mes mes, Collection<Gasto> listaDeGastos) {
+        this.id = id;
         this.nome = nome;
         this.saldo = saldo;
         this.valorInicial = valorInicial;

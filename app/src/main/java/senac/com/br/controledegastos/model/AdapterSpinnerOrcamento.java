@@ -13,16 +13,16 @@ import java.util.ArrayList;
 
 import senac.com.br.controledegastos.R;
 
-public class AdapterSpinner extends BaseAdapter {
+public class AdapterSpinnerOrcamento extends BaseAdapter {
 
     private LayoutInflater inflater;
     private ArrayList<Orcamento> orcamentos;
     private Context ctx;
 
-    public AdapterSpinner (Context context, ArrayList<Orcamento> orcamentos){
-        //Gastos que irão preencher o spinner
+    public AdapterSpinnerOrcamento(Context context, ArrayList<Orcamento> orcamentos){
+        //Orcamentos que vao preencher o spinner
         this.orcamentos = orcamentos;
-        //Responsável por pegar o layout
+        //Responsavel por pegar o layout
         inflater = LayoutInflater.from(context);
     }
 
@@ -43,11 +43,11 @@ public class AdapterSpinner extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        //Resgatar o item do Spinner pela posição
+        //Resgatar o item do Spinner pela posicao
         Orcamento item = orcamentos.get(position);
         //Resgatar o layout a ser preenchido
         view = inflater.inflate(R.layout.spinner_listar, null);
-        //Resgatar o TextView para a inserção do contexto
+        //Resgatar o TextView para a insercao do contexto
         TextView tvSpinner = (TextView) view.findViewById(R.id.tvSpinner);
         //Mandando os dados para os elementos do ListView
         tvSpinner.setText(item.getNome());

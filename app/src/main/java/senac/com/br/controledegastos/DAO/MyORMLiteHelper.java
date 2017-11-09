@@ -6,16 +6,12 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-
 import java.sql.SQLException;
-
 import senac.com.br.controledegastos.model.Gasto;
 import senac.com.br.controledegastos.model.Mes;
 import senac.com.br.controledegastos.model.Orcamento;
 
-/**
- * Created by Carlos Lohmeyer on 26/09/2017.
- */
+//Created by Carlos Lohmeyer on 26/09/2017.
 
 public class MyORMLiteHelper extends OrmLiteSqliteOpenHelper {
 

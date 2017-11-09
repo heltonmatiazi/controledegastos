@@ -1,5 +1,6 @@
 package senac.com.br.controledegastos.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,13 +15,16 @@ import java.util.List;
 import senac.com.br.controledegastos.R;
 import static java.lang.Float.parseFloat;
 
+//Created by Carlos Lohmeyer.
+
 public class NovoGastoActivity extends AppCompatActivity {
-    EditText nomeGasto;
-    EditText localGasto;
-    TextView valorGasto;
-    TextView capturaData;
-    Spinner formaPagto;
-    Spinner orcamentoSpinner;
+
+    private EditText nomeGasto;
+    private EditText localGasto;
+    private TextView valorGasto;
+    private TextView capturaData;
+    private Spinner formaPagto;
+    private Spinner orcamentoSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,7 @@ public class NovoGastoActivity extends AppCompatActivity {
         spCategorias.setAdapter(adapterCategorias);*/
     };
     public void salvarGasto(){
-        // santa validação Batman
+        // santa validaÃ§Ã£o Batman
         String nome = nomeGasto.getText().toString();
         String local = localGasto.getText().toString();
         String forma = formaPagto.getSelectedItem().toString();
@@ -54,7 +58,7 @@ public class NovoGastoActivity extends AppCompatActivity {
         capturaData.setText(dataFormamtada.toString());
         String dataCapturada = capturaData.getText().toString();
 
-        // reunindo todas as strings em uma lista para deixar a validação mais elegante
+        // reunindo todas as strings em uma lista para deixar a validaÃ§Ã£o mais elegante
         List<String> controleDeCampos = new ArrayList<String>();
         controleDeCampos.add(nome);
         controleDeCampos.add(local);
@@ -69,13 +73,15 @@ public class NovoGastoActivity extends AppCompatActivity {
         };
         // testando o campo 'valor'
         if(valor == null || valor <= 0){
-            Toast.makeText(this, "O valor especificado é inválido", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "O valor especificado Ã© invÃ¡lido", Toast.LENGTH_SHORT).show();
             return;
         };
         //TODO validar o spinner de orcamento
     };
 
     public void voltar(View viw){
-        finish();
+        Intent i = new Intent(this,MainActivity.class);
+        startActivity(i);
     }
+
 }

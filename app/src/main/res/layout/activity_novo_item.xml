@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="5dp"
-    tools:context="senac.com.br.controledegastos.activities.NovoGastoActivity">
+    tools:context="senac.com.br.controledegastos.activities.NovoItemActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         android:orientation="horizontal">
 
         <CheckBox
-            android:id="@+id/rbDiversas"
+            android:id="@+id/cbMultiplas"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"

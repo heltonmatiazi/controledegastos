@@ -41,15 +41,12 @@ public class AdapterLvGastos extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        //Resgatar o item do ListView pelo position
+        //Resgatar o gasto do ListView pelo position
         Gasto gasto = gastos.get(position);
-
         view = inflater.inflate(R.layout.gastos_lv, null);
         c = inflater.getContext();
-
         //Resgatar o TextView para a insercao do contexto
         TextView tvGastos = (TextView) view.findViewById(R.id.tvGastos);
-
         //Mandando os dados para os elementos do ListView
         if(gasto.getNome().isEmpty()){
             tvGastos.setText(R.string.to_string_local + " " + gasto.getLocal() + "\n" +
@@ -62,7 +59,8 @@ public class AdapterLvGastos extends BaseAdapter {
                     R.string.to_string_data + " " + gasto.getDate() + "\n" +
                     R.string.to_string_forma + " " + gasto.getFormadePagamento()  + "\n" +
                     R.string.to_string_valor + " " + gasto.getValor());
-    }
+        }
         return view;
     }
+
 }

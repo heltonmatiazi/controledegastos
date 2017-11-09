@@ -5,7 +5,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import java.io.Serializable;
 import java.util.Date;
 
-//Created by helton on 31/08/2017.
+//Created by Helton Matiazi on 31/08/2017.
 
 @DatabaseTable(tableName = "gasto")
 public class Gasto implements Serializable {
@@ -38,6 +38,15 @@ public class Gasto implements Serializable {
 
     public Gasto(Integer id){
         this.id = id;
+    }
+
+    public Gasto(String nome, String local, String formadePagamento, Float valor, Date date, Orcamento orcamento) {
+        this.nome = nome;
+        this.local = local;
+        this.formadePagamento = formadePagamento;
+        this.valor = valor;
+        this.date = date;
+        this.orcamento = orcamento;
     }
 
     public Gasto(Integer id, String nome, String local, String formadePagamento, Float valor, Date date, Orcamento orcamento) {
