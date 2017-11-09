@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         // testando banco de dados
         try {
-            System.out.println("ANTES DE INSERIR OS OBJETOS DE MES");
+            System.out.println("before Insert");
             r.inserirMesParaTeste(this);
-            System.out.println("DEPOIS DE INSERIR OS OBJETOS DE MES");
+            System.out.println("after Insert");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Boolean primeiroDia(Calendar calendar){
-        SimpleDateFormat diaFormatado = new SimpleDateFormat("dd");
+        SimpleDateFormat diaFormatado = new SimpleDateFormat("d");
         String diaAtual = diaFormatado.format(calendar.getTime());
         Integer dia = parseInt(diaAtual);
         if(dia == 1){

@@ -9,6 +9,7 @@ import android.content.pm.ActivityInfo;
 
 public class ActivityHelper {
     public static void initialize(Activity activity){
+        // previne que o usuario altere a orientação da tela
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 }

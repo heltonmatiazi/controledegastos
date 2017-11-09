@@ -187,7 +187,6 @@ public class RetornoDao{
         }
         return nome;
     }
-
     //INICIA AS VARIÁVEIS QUE A CLASSE TRABALHA
     public void iniciar(){
         gastos = new ArrayList<Gasto>();
@@ -199,7 +198,6 @@ public class RetornoDao{
         mesTeste1 = new Mes();
         mesTeste2 = new Mes();
     }
-
     /*public ArrayList<Orcamento> stringsParaSpinner(Context context){
         System.out.println(" ENTROU NO METODO QUE POPULA O ARRAY ");
         orcs = new ArrayList<Orcamento>();
@@ -220,7 +218,6 @@ public class RetornoDao{
         }
         return orcs;
     }*/
-
     public void inserirMesParaTeste(Context context) throws SQLException {
         iniciar();
         mesTeste1.setNome("OUTUBRO");
@@ -242,7 +239,6 @@ public class RetornoDao{
         inserirMesParaTeste2(context, mesTeste1);
         inserirMesParaTeste3(context);
     }
-
     public void inserirMesParaTeste2(Context context, Mes m) throws SQLException {
         iniciar();
         mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
@@ -257,18 +253,15 @@ public class RetornoDao{
             System.out.println("OBJETO mesTeste1 ERRO INESPERADO!!!" + "\n");
         }
     }
-
     public void inserirMesParaTeste3(Context context) throws SQLException {
         iniciar();
         mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
-
         mesTeste2.setNome("NOVEMBRO");
         mesTeste2.setAno("2017");
         mesTeste2.setMesAtual(true);
         mesTeste2.setCartaoMesAnterior(null);
         mesTeste2.setCartaoMesAtual(null);
         mesTeste2.setRenda(null);
-
         Dao.CreateOrUpdateStatus res2 = mesDao.createOrUpdate(mesTeste2);
         if(res2.isCreated()){
             System.out.println("OBJETO mesTeste2 CRIADO COM SUCESSO!!!" + "\n");
