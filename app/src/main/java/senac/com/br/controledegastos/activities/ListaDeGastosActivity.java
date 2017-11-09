@@ -19,6 +19,7 @@ import senac.com.br.controledegastos.model.AdapterSpinnerOrcamento;
 import senac.com.br.controledegastos.model.Gasto;
 import senac.com.br.controledegastos.model.Mes;
 import senac.com.br.controledegastos.model.Orcamento;
+import senac.com.br.controledegastos.util.ActivityHelper;
 import senac.com.br.controledegastos.util.RetornoDao;
 
 //Created by Carlos Lohmeyer.
@@ -38,8 +39,8 @@ public class ListaDeGastosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityHelper.initialize(this);
         setContentView(R.layout.activity_lista_de_gastos);
-
         iniciar();
         mes = retornoDao.retornaMesAtual(this);
         orcamentos = retornoDao.retornarListaDeOrcamentosComGastos(this, mes);

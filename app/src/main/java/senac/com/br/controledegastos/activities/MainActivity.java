@@ -1,7 +1,6 @@
 package senac.com.br.controledegastos.activities;
 
 import android.app.AlarmManager;
-import android.app.FragmentManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +28,7 @@ import java.util.Calendar;
 import senac.com.br.controledegastos.R;
 import senac.com.br.controledegastos.model.Gasto;
 import senac.com.br.controledegastos.model.Mes;
+import senac.com.br.controledegastos.util.ActivityHelper;
 import senac.com.br.controledegastos.util.RetornoDao;
 import senac.com.br.controledegastos.util.TimeChangedReceiver;
 
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityHelper.initialize(this);
         setContentView(R.layout.activity_main);
 
         // testando banco de dados

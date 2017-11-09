@@ -16,6 +16,7 @@ import senac.com.br.controledegastos.DAO.MyORMLiteHelper;
 import senac.com.br.controledegastos.R;
 import senac.com.br.controledegastos.model.Mes;
 import senac.com.br.controledegastos.model.Orcamento;
+import senac.com.br.controledegastos.util.ActivityHelper;
 
 //Created by Carlos Lohmeyer.
 
@@ -37,6 +38,7 @@ public class NovoItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityHelper.initialize(this);
         setContentView(R.layout.activity_novo_item);
 
         resgatarViews();

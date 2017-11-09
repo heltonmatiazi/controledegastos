@@ -13,12 +13,14 @@ import com.github.paolorotolo.appintro.AppIntro;
 
 import senac.com.br.controledegastos.R;
 import senac.com.br.controledegastos.components.SampleSlide;
+import senac.com.br.controledegastos.util.ActivityHelper;
 
 public class AvisoActivity extends AppIntro {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityHelper.initialize(this);
         addSlide(SampleSlide.newInstance(R.layout.aviso_slide_1));
         showSkipButton(false);
         setSlideOverAnimation();
