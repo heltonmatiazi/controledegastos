@@ -4,6 +4,8 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <!-- The first child in the layout is for the main Activity UI-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,15 +32,18 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="10dp"
-            android:layout_marginBottom="5dp"
-            style="@style/txt">
+            android:layout_marginBottom="5dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:textStyle="bold"
-                android:text="@string/restanteMes"/>
+                android:textColor="#000"
+                android:text="@string/restanteMes"
+                android:layout_marginRight="2dp"
+                style="@style/txt"
+                tools:ignore="RtlHardcoded"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -46,7 +51,7 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:id="@+id/dinheiroMes"
-                android:text="@string/placeholder_dinheiro"/>
+                style="@style/txt"/>
 
         </LinearLayout>
 
@@ -57,21 +62,25 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/layout3"
-            android:layout_marginBottom="5dp"
-            style="@style/txt">
+            android:layout_marginBottom="5dp">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:textStyle="bold"
-                android:text="@string/gastosMes"/>
+                android:textColor="#000"
+                android:text="@string/gastosMes"
+                style="@style/txt"/>
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:id="@+id/gastosMes"
-                android:text="@string/placeholder_saldo"/>
+                style="@style/txt"/>
+
         </LinearLayout>
 
         <Button
@@ -83,17 +92,30 @@
             android:drawableStart="@drawable/cash"
             android:onClick="adicionarGasto"
             android:scaleType="fitCenter"
+            android:id="@+id/layout4"
+            android:adjustViewBounds="true"
+            style="@style/button"/>
+
+        <Button
+            android:layout_below="@+id/layout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="42dp"
+            android:text="@string/ver_cart_o"
+            android:onClick="verCartao"
+            android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             style="@style/button"/>
 
     </RelativeLayout>
 
+    <!-- Side navigation drawer UI -->
     <ListView
         android:id="@+id/navList"
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_gravity="left|start"
-        android:background="#ffeeeeee"
+        android:background="#fdf3d9"
         tools:ignore="RtlHardcoded"/>
 
 </android.support.v4.widget.DrawerLayout>

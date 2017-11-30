@@ -16,7 +16,7 @@ import senac.com.br.controledegastos.model.Orcamento;
 public class MyORMLiteHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "simplifica";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static MyORMLiteHelper mInstance = null;
     private Dao<Mes, Integer> mesDao = null;
     private Dao<Orcamento, Integer> orcamentoDao = null;

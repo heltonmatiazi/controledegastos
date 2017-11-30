@@ -5,8 +5,7 @@
     <string name="drawer_close">Fechar Menu</string>
     <string name="Testing">Teste</string>
     <string name="adicionar_gasto">Adicionar Gasto</string>
-    <string name="restanteMes">Dinheiro Restante Para o Mês:</string>
-    <string name="placeholder_dinheiro">R$ 0.00</string>
+    <string name="restanteMes">Saldo do Mês:</string>
     <string name="placeholder_saldo">R$ 0.00</string>
     <string name="gastosMes">Total de Gastos no Mês:</string>
     <string name="dataGasto">Data</string>
@@ -20,7 +19,7 @@
     <string name="nomedoItem">Nome do item de orçamento</string>
     <string name="salvar">Salvar</string>
     <string name="valordoGasto">Valor</string>
-    <string name="tipo_de_gasto">Tipo de gasto</string>
+    <string name="tipo_de_gasto">Selecione o orçamento</string>
     <string name="slide_1_subtitulo">Vamos preparar o controle de contas desse mês</string>
     <string name="slide_1_titulo">Bem vindo!</string>
     <string name="subtitulo_slide_2">Vamos definir seu limite de gastos mensal</string>
@@ -42,6 +41,7 @@
     <string name="tutorial_subTitulo_5"></string>
     <string name="rb_multipla">Entradas Múltiplas</string>
     <string name="tv_ajuda">Ajuda</string>
+    <string name="texto_ajuda_notificar">O valor de notificação serve para o usuário especificar um valor para quando o saldo do mês for igual ou inferior o aplicativo lançar notificações do seu saldo do mês.</string>
     <string name="texto_ajuda0">Entradas Múltiplas:</string>
     <string name="texto_ajuda1">Quando for um item de orçamento que seja um gasto especifico que
         o usuário programa uma quantia a ser gasta durante o mês. Ex.: almoço, cinema, pequenos gastos ou gastos
@@ -53,6 +53,7 @@
         no valor do item.</string>
     <string name="btn_voltar">Voltar</string>
     <string name="forma">Escolha a forma de pagamento</string>
+    <string name="lvForma">Forma de pagamento:</string>
     <string name="dinheiro">Dinheiro</string>
     <string name="credito">Cartão Crédito</string>
     <string name="debito">Cartão Débito</string>
@@ -62,10 +63,10 @@
     <string name="toast_salvo">Salvo com sucesso.</string>
     <string name="toast_atualizado">Atualizado com sucesso</string>
     <string name="toast_erro">ERRO.</string>
-    <string name="drawer_novoItem">Adicionar Novo Item no Orcamento</string>
-    <string name="drawer_verItem">Visualizar Itens do Orcamento</string>
-    <string name="drawer_editar">Editar Valor da Renda Mensal</string>
-    <string name="drawer_novoGasto">Adicionar Novo Gasto</string>
+    <string name="drawer_novoItem">Adicionar Orcamento</string>
+    <string name="drawer_verItem">Visualizar Orcamento</string>
+    <string name="drawer_editar">Editar Renda</string>
+    <string name="drawer_novoGasto">Adicionar Gasto</string>
     <string name="drawer_verGastos">Visualizar Gastos</string>
     <string name="drawer_gerar">Gerar Relatório</string>
     <string name="cifrao">R$</string>
@@ -77,8 +78,11 @@
     <string name="to_string_forma">Forma de Pagamento:</string>
     <string name="to_string_local">Local:</string>
     <string name="tv_renda_atual">Renda Atual:</string>
+    <string name="tv_notificar_atual">Notificação Atual:</string>
     <string name="tv_renda_editar">Editar Renda:</string>
-    <string name="hint_renda">Insira sua renda</string>
+    <string name="tv_notificar_editar">Editar Notificação:</string>
+    <string name="hint_renda">Insira sua renda!</string>
+    <string name="hint_notificar">Insira o valor para notificação!</string>
     <string name="tv_notificacao">Entre o valor para ser notificado:</string>
     <string name="mes_jan">JANEIRO</string>
     <string name="mes_fev">FEVEREIRO</string>
@@ -92,23 +96,35 @@
     <string name="mes_out">OUTUBRO</string>
     <string name="mes_nov">NOVEMBRO</string>
     <string name="mes_dez">DEZEMBRO</string>
-    <string name="btn_listar">LISTAR</string>
-    <string name="btn_editar">EDITAR</string>
+    <string name="btn_listar">Listar</string>
+    <string name="btn_editar">Editar</string>
     <string name="title_activity_aviso">AvisoActivity</string>
     <string name="aviso_texto_1">Olá!</string>
     <string name="aviso_texto_2">Parece que a data de seu dispositivo foi alterada. Precisamos conferir se os dados continuam corretos. Só vai levar um minuto.</string>
     <string name="sel_orcamento">Selecione um item de orçamento:</string>
-    <string name="editar_gasto">EDITANDO UM GASTO</string>
-    <string name="editar_orcamento">EDITANDO UM ORÇAMENTO</string>
-    <string name="del_gasto">EXCLUINDO UM GASTO</string>
-    <string name="del_orcamento">EXCLUINDO UM ORÇAMENTO</string>
+    <string name="editar_gasto">Editando um Gasto</string>
+    <string name="editar_orcamento">Editando um Orçamento</string>
+    <string name="del_gasto">Excluindo um Gasto</string>
+    <string name="del_orcamento">Excluindo um Orçamento</string>
     <string name="msg_editar_gasto">Deseja mesmo editar este gasto?</string>
     <string name="msg_editar_orcamento">Deseja mesmo editar o orçamento</string>
     <string name="msg_apagar_gasto">Deseja mesmo excluir este gasto?</string>
+    <string name="msg_apagar_gasto_cartao">Este gasto tem pagamento efetuado no cartão de crédito. Deseja mesmo excluir este gasto?</string>
     <string name="msg_apagar_orcamento">Deseja mesmo excluir o orçamento</string>
+    <string name="msg_apagar_orcamento_cartao">Este item de orçamento possui gasto(s) pago(s) no cartão de crédito. Deseja mesmo excluir o item de orçamento</string>
+    <string name="msg_apagar_orcamentoFixo_cartao">Este item de orçamento foi pago no cartão de crédito. Deseja mesmo excluir o item de orçamento</string>
     <string name="sim">SIM</string>
     <string name="nao">NÃO</string>
     <string name="msg_orcamentos_atual">Orçamentos do mês atual</string>
     <string name="toast_editar_renda">Novo valor da renda obrigatório!</string>
     <string name="toast_editar_renda_ok">Novo valor de renda atualizado com sucesso!</string>
+    <string name="toast_del_orcamento">Orçamento excluido com sucesso!</string>
+    <string name="msg_add_renda">Este mês não tem uma renda definida. Favor adicionar a sua renda!</string>
+    <string name="toast_pagamento">Escolha uma forma de pagamento!</string>
+    <string name="msg_add_orcamento_multiplos">Este mês não tem um item de orçamento com entradas múltiplos definido. Favor adicionar um item que seja com entradas múltiplas!</string>
+    <string name="tvCabecalho">Orçamento(s) de</string>
+    <string name="toast_att_mes">Mês atualizado com sucesso!</string>
+    <string name="toast_gasto_valor">O valor especificado é inválido!</string>
+    <string name="toast_gasto_campos">Preencha os campos corretamente!</string>
+    <string name="ver_cart_o">VER CARTÃO</string>
 </resources>

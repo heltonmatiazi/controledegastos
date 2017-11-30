@@ -33,7 +33,9 @@ import senac.com.br.controledegastos.util.RetornoDao;
 import senac.com.br.controledegastos.util.TimeChangedReceiver;
 
 import static java.lang.Integer.parseInt;
+import static senac.com.br.controledegastos.R.id.gastosMes;
 import static senac.com.br.controledegastos.R.id.textview1;
+import static senac.com.br.controledegastos.R.id.tvGastos;
 
 
 @SuppressWarnings("MissingPermission")
@@ -45,21 +47,20 @@ public class MainActivity extends AppCompatActivity {
     private String mActivityTitle, data, hora;
     private RetornoDao r;
     private Mes mes;
+    private Float tvSaldo, tvGastos;
     private boolean confirmarMesAtual;
     private TimeChangedReceiver timeChange;
-    private TextView textview1;
+    private TextView textview1,saldo, gastosMes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityHelper.initialize(this);
         setContentView(R.layout.activity_main);
-
+        r = new RetornoDao();
         // testando banco de dados
         try {
-            System.out.println("before Insert");
             r.inserirMesParaTeste(this);
-            System.out.println("after Insert");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,7 +82,23 @@ public class MainActivity extends AppCompatActivity {
         confirmarMesAtual = r.verificarMesAtual(mes, data, this);
 
         textview1 = (TextView) findViewById(R.id.textview1);
-        textview1.setText(mes.getNome()+" / "+mes.getAno());
+        saldo = (TextView) findViewById(R.id.dinheiroMes);
+        gastosMes = (TextView) findViewById(gastosMes);
+        textview1.setText(mes.getNome() + " / " + mes.getAno());
+        if(mes.getRenda() == null){
+            saldo.setText(getString(R.string.cifrao) + " 0.0");
+            gastosMes.setText(getString(R.string.cifrao) + " 0.0");
+        }else {
+            tvSaldo = mes.getSaldoMensal();
+            tvGastos = r.retornaEAtualizaTotalDeGastos(this);
+            saldo.setText(getString(R.string.cifrao) + " " + tvSaldo);
+            gastosMes.setText(getString(R.string.cifrao) + " " + tvGastos);
+            /*if(mes.getRenda() == mes.getSaldoMensal()){
+                gastosMes.setText(getString(R.string.cifrao) + " 0,00");
+            }else {
+                gastosMes.setText(getString(R.string.cifrao) + " " + tvGastos);
+            }*/
+        }
 
         // lança o tutorial no primeiro acesso
         launchTutorial();
@@ -177,8 +194,6 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "Opção 6 selecionada com sucesso", Toast.LENGTH_SHORT).show();
                             break;
                 }
-
-
             }
         });
     }
@@ -273,4 +288,19 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    private Intent chamarAviso(){
+        final Intent i = new Intent(this,AvisoActivity.class);
+        return i;
+    }
+
+    public void verCartao(View view){
+        Toast.makeText(this, "Total do cartão de crédito para o mês seguinte: R$ " + mes.getCartaoMesAtual(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("TESTANDO O CARTÃO MES ATUAL R$ " + mes.getCartaoMesAtual());
+    }
 }

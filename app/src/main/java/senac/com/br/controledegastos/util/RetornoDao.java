@@ -27,6 +27,8 @@ public class RetornoDao{
     private ArrayList<Mes> meses;
     private ArrayList<Orcamento> orcamentos, orcamentos1;
     private ArrayList<Gasto> gastos, gastos1;
+    private Float gastoTotal, saldoMes, saldoOrcamento, rendaMes, cartaoMes, cartaoOrcamento, valorOrcamentos, diferenca;
+    private boolean condicional;
 
     //RETORNA APENAS O MÊS ATUAL
     public Mes retornaMesAtual(Context context){
@@ -144,6 +146,45 @@ public class RetornoDao{
         return orcamentos1;
     }
 
+    //RETORNA O VALOR TOTAL DE GASTOS NO CARTÃO DE CRÉDITO DE UM ORÇAMENTO, SE HOUVER SENÃO RETORNA ZERO
+    public Float retornarOrcamentoCredito(Context context, Orcamento orcamento){
+        iniciar();
+        cartaoOrcamento = Float.valueOf("0");
+        gastos = retornaListaDeGastos(context, orcamento);
+        for(int x = 0; x < gastos.size(); x++){
+            if(gastos.get(x).getFormadePagamento().equals(context.getString(R.string.credito))){
+                cartaoOrcamento = cartaoOrcamento + gastos.get(x).getValor();
+            }
+        }
+        return cartaoOrcamento;
+    }
+
+    //RETORNA O VALOR TOTAL DE GASTOS DE UM ORÇAMENTO SEM SER CREDITO, SE HOUVER SENÃO RETORNA ZERO
+    public Float retornarOrcamentoValorGastos(Context context, Orcamento orcamento){
+        iniciar();
+        cartaoOrcamento = Float.valueOf("0");
+        gastos = retornaListaDeGastos(context, orcamento);
+        for(int x = 0; x < gastos.size(); x++){
+            if(!gastos.get(x).getFormadePagamento().equals(context.getString(R.string.credito))){
+                cartaoOrcamento = cartaoOrcamento + gastos.get(x).getValor();
+            }
+        }
+        return cartaoOrcamento;
+    }
+
+    //RETORNA UM BOOLEANO PARA DIZER SE HA OU NAO UM GASTO PAGO NO CREDITO
+    public boolean retornarIsCredito(Context context, Orcamento orcamento){
+        iniciar();
+        condicional = false;
+        gastos = retornaListaDeGastos(context, orcamento);
+        for(int x = 0; x < gastos.size(); x++){
+            if(gastos.get(x).getFormadePagamento().equals(context.getString(R.string.credito))){
+                condicional = true;
+            }
+        }
+        return condicional;
+    }
+
     //TRAZ A DATA FORMATADA EM STRING E COMPARA COM O NOME E ANO DO MÊS ATUAL
     public boolean verificarMesAtual(Mes mesBanco, String dataAtual, Context context){
         String date[] = dataAtual.split("/");
@@ -154,6 +195,8 @@ public class RetornoDao{
         if(mesBanco.getNome().equals(nomeMes) && mesBanco.getAno().equals(ano)){
             return true;
         }else {
+            System.out.println("ERRO DE INICIAÇÃO MÊS DO BANCO " + mesBanco.getNome() + " E ANO " + mesBanco.getAno());
+            System.out.println("ERRO DE INICIAÇÃO MÊS DA DATA " + mes + " E ANO " + ano);
             return false;
         }
     }
@@ -187,6 +230,7 @@ public class RetornoDao{
         }
         return nome;
     }
+
     //INICIA AS VARIÁVEIS QUE A CLASSE TRABALHA
     public void iniciar(){
         gastos = new ArrayList<Gasto>();
@@ -198,47 +242,36 @@ public class RetornoDao{
         mesTeste1 = new Mes();
         mesTeste2 = new Mes();
     }
-    /*public ArrayList<Orcamento> stringsParaSpinner(Context context){
-        System.out.println(" ENTROU NO METODO QUE POPULA O ARRAY ");
-        orcs = new ArrayList<Orcamento>();
-        Orcamento o1 = new Orcamento("PPPPPP");
-        Orcamento o2 = new Orcamento("CCCCCCCC");
-        Orcamento o3 = new Orcamento("MMMMMMMM");
-        Orcamento o4 = new Orcamento("AAAAAAA");
-        Orcamento o5 = new Orcamento("BBBBBBB");
-        Orcamento o6 = new Orcamento(context.getString(R.string.cifrao));
-        orcs.add(o1);
-        orcs.add(o2);
-        orcs.add(o3);
-        orcs.add(o4);
-        orcs.add(o5);
-        orcs.add(o6);
-        for(int a = 0; a < orcs.size(); a++){
-            System.out.println("IMPRIMINDO ESSA MERDA NO PRIMEIRO MÃ‰TODO " + orcs.get(a).getNome());
-        }
-        return orcs;
-    }*/
+
+    //MÉTODOS ABAIXO PARA INSERIR DADOS DE MES NO BANCO
     public void inserirMesParaTeste(Context context) throws SQLException {
         iniciar();
-        mesTeste1.setNome("OUTUBRO");
-        mesTeste1.setAno("2017");
-        mesTeste1.setMesAtual(true);
-        mesTeste1.setCartaoMesAnterior(null);
-        mesTeste1.setCartaoMesAtual(null);
-        mesTeste1.setRenda(null);
-        mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+        meses = retornaListaDeMeses(context);
+        if(meses.isEmpty()){
+            mesTeste1.setId(1);
+            mesTeste1.setNome("OUTUBRO");
+            mesTeste1.setAno("2017");
+            mesTeste1.setMesAtual(true);
+            mesTeste1.setCartaoMesAnterior(null);
+            mesTeste1.setCartaoMesAtual(null);
+            mesTeste1.setRenda(null);
+            mesTeste1.setSaldoMensal(null);
+            mes.setNotificar(null);
+            mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
 
-        Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mesTeste1);
-        if(res.isCreated()){
-            System.out.println("OBJETO mesTeste1 CRIADO COM SUCESSO!!!" + "\n");
-        }else if(res.isUpdated()){
-            System.out.println("OBJETO mesTeste1 ATUALIZADO COM SUCESSO!!!" + "\n");
-        }else{
-            System.out.println("OBJETO mesTeste1 ERRO INESPERADO!!!" + "\n");
+            Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mesTeste1);
+            if(res.isCreated()){
+                System.out.println("OBJETO mesTeste1 CRIADO COM SUCESSO!!!" + "\n");
+            }else if(res.isUpdated()){
+                System.out.println("OBJETO mesTeste1 ATUALIZADO COM SUCESSO!!!" + "\n");
+            }else{
+                System.out.println("OBJETO mesTeste1 ERRO INESPERADO!!!" + "\n");
+            }
+            inserirMesParaTeste2(context, mesTeste1);
+            inserirMesParaTeste3(context);
         }
-        inserirMesParaTeste2(context, mesTeste1);
-        inserirMesParaTeste3(context);
     }
+
     public void inserirMesParaTeste2(Context context, Mes m) throws SQLException {
         iniciar();
         mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
@@ -253,15 +286,20 @@ public class RetornoDao{
             System.out.println("OBJETO mesTeste1 ERRO INESPERADO!!!" + "\n");
         }
     }
+
     public void inserirMesParaTeste3(Context context) throws SQLException {
         iniciar();
         mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+        mesTeste2.setId(2);
         mesTeste2.setNome("NOVEMBRO");
         mesTeste2.setAno("2017");
         mesTeste2.setMesAtual(true);
         mesTeste2.setCartaoMesAnterior(null);
         mesTeste2.setCartaoMesAtual(null);
+        mesTeste2.setSaldoMensal(null);
         mesTeste2.setRenda(null);
+        mes.setNotificar(null);
+
         Dao.CreateOrUpdateStatus res2 = mesDao.createOrUpdate(mesTeste2);
         if(res2.isCreated()){
             System.out.println("OBJETO mesTeste2 CRIADO COM SUCESSO!!!" + "\n");
@@ -272,4 +310,462 @@ public class RetornoDao{
         }
     }
 
+    //ATUALIZA O SALDO MENSAL QUANDO UM ORÇAMENTO FOR ADICIONADO
+    public void atualizaSaldoMensal(Context context, Float valor) throws SQLException {
+        iniciar();
+        mes = retornaMesAtual(context);
+        saldoMes = mes.getSaldoMensal();
+        saldoMes = saldoMes - valor;
+        mes.setSaldoMensal(saldoMes);
+        mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+        Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mes);
+        if(res.isCreated()){
+            System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+        }else if(res.isUpdated()){
+            System.out.println("ORÇAMENTO ATUALIZADO COM SUCESSO");
+            System.out.println("MES ATUALIZADO COM SUCESSO");
+        }else{
+            System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+        }
+    }
+
+    //ATUALIZA O SALDO MENSAL QUANDO UM ORÇAMENTO FOR ATUALIZADO O ANTIGO ERA CREDITO O NOVO NÃO
+    public void atualizaSaldoMensalSemCartaoOrc(Context context, Float valor, Float valorCartao) throws SQLException {
+        iniciar();
+        mes = retornaMesAtual(context);
+        saldoMes = mes.getSaldoMensal();
+        System.out.println("SALDO DO MES ANTES DA ATUALAIZACAO " + saldoMes);
+        cartaoMes = mes.getCartaoMesAtual();
+        System.out.println("CARTAO ATUAL ANTES DA ATUALAIZACAO " + cartaoMes);
+        saldoMes = saldoMes - valor;
+        System.out.println("SALDO DO MES depois DA ATUALAIZACAO " + saldoMes);
+        cartaoMes = cartaoMes - valorCartao;
+        System.out.println("CARTAO ATUAL DEPOIS DA ATUALAIZACAO " + cartaoMes);
+        mes.setSaldoMensal(saldoMes);
+        mes.setCartaoMesAtual(cartaoMes);
+        mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+        Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mes);
+        if(res.isCreated()){
+            System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+        }else if(res.isUpdated()){
+            System.out.println("ORÇAMENTO CRIADO COM SUCESSO");
+            System.out.println("MES ATUALIZADO COM SUCESSO");
+        }else{
+            System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+        }
+    }
+
+    //ATUALIZA O CARTÃO ATUAL QUANDO UM ORÇAMENTO FOR ATUALIZADO O ANTIGO NÃO ERA CREDITO O NOVO SIM
+    public void atualizaSaldoMensalComCartao(Context context, Float valor, Float valorCartao) throws SQLException {
+        iniciar();
+        mes = retornaMesAtual(context);
+        saldoMes = mes.getSaldoMensal();
+        cartaoMes = mes.getCartaoMesAtual();
+        if (cartaoMes == null){
+            cartaoMes = Float.valueOf("0");
+        }
+        saldoMes = saldoMes + valor;
+        cartaoMes = cartaoMes + valorCartao;
+        mes.setSaldoMensal(saldoMes);
+        mes.setCartaoMesAtual(cartaoMes);
+        mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+        Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mes);
+        if(res.isCreated()){
+            System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+        }else if(res.isUpdated()){
+            System.out.println("ORÇAMENTO ATUALIZADO COM SUCESSO");
+            System.out.println("MES ATUALIZADO COM SUCESSO");
+        }else{
+            System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+        }
+    }
+
+    //ATUALIZA O SALDO MENSAL QUANDO UM ORÇAMENTO FOR ATUALIZADO O ANTIGO ERA OUTROS O NOVO CREDITO
+    public void atualizaCartaoComSaldoMensalOrc(Context context, Float valorCartao, Float valor) throws SQLException {
+        iniciar();
+        mes = retornaMesAtual(context);
+        saldoMes = mes.getSaldoMensal();
+        System.out.println("SALDO DO MES ANTES DA ATUALAIZACAO " + saldoMes);
+        cartaoMes = mes.getCartaoMesAtual();
+        System.out.println("CARTAO ATUAL ANTES DA ATUALAIZACAO " + cartaoMes);
+        saldoMes = saldoMes + valor;
+        System.out.println("SALDO DO MES DEPOIS DA ATUALAIZACAO " + saldoMes);
+        cartaoMes = cartaoMes + valorCartao;
+        System.out.println("CARTAO ATUAL DEPOIS DA ATUALAIZACAO " + cartaoMes);
+        mes.setSaldoMensal(saldoMes);
+        mes.setCartaoMesAtual(cartaoMes);
+        mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+        Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mes);
+        if(res.isCreated()){
+            System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+        }else if(res.isUpdated()){
+            System.out.println("ORÇAMENTO ATUALIZADO COM SUCESSO");
+            System.out.println("MES ATUALIZADO COM SUCESSO");
+        }else{
+            System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+        }
+    }
+
+    //ATUALIZA O SALDO MENSAL QUANDO UM ORÇAMENTO FOR ATUALIZADO
+    public void atualizaSaldoMensalOrc(Context context, Float valorNovo, Float valorAntigo) throws SQLException {
+        iniciar();
+        mes = retornaMesAtual(context);
+        saldoMes = mes.getSaldoMensal();
+        if(valorAntigo < valorNovo){
+            diferenca = valorNovo - valorAntigo;
+            saldoMes = saldoMes - diferenca;
+        }else if(valorAntigo > valorNovo){
+            diferenca = valorAntigo - valorNovo;
+            saldoMes = saldoMes + diferenca;
+        }else if(valorAntigo == valorNovo){
+            saldoMes = saldoMes + Float.valueOf("0");
+        }
+        mes.setSaldoMensal(saldoMes);
+        mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+        Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mes);
+        if(res.isCreated()){
+            System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+        }else if(res.isUpdated()){
+            System.out.println("ORÇAMENTO CRIADO COM SUCESSO");
+            System.out.println("MES ATUALIZADO COM SUCESSO");
+        }else{
+            System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+        }
+    }
+
+    //INSERI VALORES NO CARTÃO DE CRÉDITO ATUAL
+    public void adicionaCartaoAtual(Context context, Float valor) throws SQLException {
+        iniciar();
+        mes = retornaMesAtual(context);
+        cartaoMes = mes.getCartaoMesAtual();
+        if(cartaoMes == null){
+            cartaoMes = Float.valueOf("0");
+        }
+        cartaoMes = cartaoMes + valor;
+        mes.setCartaoMesAtual(cartaoMes);
+        mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+        Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mes);
+        if(res.isCreated()){
+            System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+        }else if(res.isUpdated()){
+            System.out.println("MES ATUALIZADO COM SUCESSO");
+        }else{
+            System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+        }
+    }
+
+    //EDITA O VALOR ATUAL DO CARTÃO DE CRÉDITO QUANDO O ORÇAMENTO FOR EDITADO
+    public void editaCartaoAtualOrc(Context context, Float valorAntigo, Float valorNovo) throws SQLException {
+        iniciar();
+        mes = retornaMesAtual(context);
+        cartaoMes = mes.getCartaoMesAtual();
+        if(valorAntigo < valorNovo){
+            diferenca = valorNovo - valorAntigo;
+            cartaoMes = cartaoMes + diferenca;
+        }else if(valorAntigo > valorNovo){
+            diferenca = valorAntigo - valorNovo;
+            cartaoMes = cartaoMes - diferenca;
+        }else if(valorAntigo == valorNovo){
+            cartaoMes = cartaoMes + Float.valueOf("0");
+        }
+        mes.setCartaoMesAtual(cartaoMes);
+        mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+        Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mes);
+        if(res.isCreated()){
+            System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+        }else if(res.isUpdated()){
+            System.out.println("RENDA DO MES ATUALIZADA COM SUCESSO");
+        }else{
+            System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+        }
+    }
+
+    //RETORNA O SALDO MENSAL QUANDO A RENDA FOR EDITADA
+    public Float retornaSaldoMensal(Context context, Float valor) throws SQLException {
+        iniciar();
+        Float diferencaMaior, diferencamenor;
+        mes = retornaMesAtual(context);
+        rendaMes = mes.getRenda();
+        saldoMes = mes.getSaldoMensal();
+        if(rendaMes < valor){
+            diferencaMaior = valor - rendaMes;
+            saldoMes = saldoMes + diferencaMaior;
+        }else if(rendaMes > valor){
+            diferencamenor = rendaMes - valor;
+            saldoMes = saldoMes - diferencamenor;
+        }else if(rendaMes == valor){
+            saldoMes = saldoMes + Float.valueOf("0");
+        }
+        return saldoMes;
+    }
+
+    //RETORNA O SALDO DE UM ORCAMENTO QUANDO VAI DELETAR UM GASTO
+    public Float retornaSaldoOrcamento( Context context, Integer id){
+        iniciar();
+        orcamentos = retornaListaDeOrcamentosAtuais(context);
+        for(int x = 0; x < meses.size(); x++){
+            if(orcamentos.get(x).getId().equals(id)){
+                diferenca = orcamentos.get(x).getSaldo();
+            }
+        }
+        return diferenca;
+    }
+
+    //NA EDIÇÃO DO GASTO A FORMA ANTIGA ERA CREDITO E A NOVA CREDITO - VALOR A MAIS
+    public void attGastoCredMais(Context context, Float valor){
+        mes = retornaMesAtual(context);
+        cartaoMes = mes.getCartaoMesAtual();
+        cartaoMes = cartaoMes + valor;
+        mes.setCartaoMesAtual(cartaoMes);
+        try {
+            mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+            Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mes);
+            if(res.isCreated()){
+                System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+            }else if(res.isUpdated()){
+                System.out.println("RENDA DO MES ATUALIZADA COM SUCESSO");
+            }else{
+                System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //NA EDIÇÃO DO GASTO A FORMA ANTIGA ERA CREDITO E A NOVA CREDITO - VALOR A MENOS
+    public void attGastoCredMenos(Context context, Float valor){
+        mes = retornaMesAtual(context);
+        cartaoMes = mes.getCartaoMesAtual();
+        cartaoMes = cartaoMes - valor;
+        mes.setCartaoMesAtual(cartaoMes);
+        try {
+            mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+            Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mes);
+            if(res.isCreated()){
+                System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+            }else if(res.isUpdated()){
+                System.out.println("RENDA DO MES ATUALIZADA COM SUCESSO");
+            }else{
+                System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //NA EDIÇÃO DO GASTO A FORMA ANTIGA ERA CREDITO E A NOVA OUTROS
+    public void attGastoCredParaSaldo(Context context, Float valor, Float valorCartao, Orcamento orcamento){
+        mes = retornaMesAtual(context);
+        cartaoMes = mes.getCartaoMesAtual();
+        cartaoMes = cartaoMes - valorCartao;
+        saldoOrcamento = orcamento.getSaldo();
+        saldoOrcamento = saldoOrcamento - valor;
+        orcamento.setSaldo(saldoOrcamento);
+        mes.setCartaoMesAtual(cartaoMes);
+        try {
+            mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+            Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mes);
+            if(res.isCreated()){
+                System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+            }else if(res.isUpdated()){
+                System.out.println("RENDA DO MES ATUALIZADA COM SUCESSO");
+            }else{
+                System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            orcamentoDao = MyORMLiteHelper.getInstance(context).getOrcamentoDao();
+            Dao.CreateOrUpdateStatus resOrc = orcamentoDao.createOrUpdate(orcamento);
+            if(resOrc.isCreated()){
+                System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+            }else if(resOrc.isUpdated()){
+                System.out.println("RENDA DO MES ATUALIZADA COM SUCESSO");
+            }else{
+                System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //NA EDIÇÃO DO GASTO A FORMA ANTIGA ERA OUTROS E A NOVA OUTROS E O VALOR DO GASTO É MAIOR
+    public void attGastoOutrosdMais(Context context, Float valor, Orcamento orcamento){
+        mes = retornaMesAtual(context);
+        saldoOrcamento = orcamento.getSaldo();
+        saldoOrcamento = saldoOrcamento - valor;
+        orcamento.setSaldo(saldoOrcamento);
+        try {
+            orcamentoDao = MyORMLiteHelper.getInstance(context).getOrcamentoDao();
+            Dao.CreateOrUpdateStatus resOrc = orcamentoDao.createOrUpdate(orcamento);
+            if(resOrc.isCreated()){
+                System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+            }else if(resOrc.isUpdated()){
+                System.out.println("RENDA DO MES ATUALIZADA COM SUCESSO");
+            }else{
+                System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //NA EDIÇÃO DO GASTO A FORMA ANTIGA ERA OUTROS E A NOVA OUTROS E O VALOR DO GASTO É MENOR
+    public void attGastoOutrosdMenos(Context context, Float valor, Orcamento orcamento){
+        mes = retornaMesAtual(context);
+        saldoOrcamento = orcamento.getSaldo();
+        saldoOrcamento = saldoOrcamento + valor;
+        diferenca = orcamento.getSaldo() * -1;
+        if(orcamento.getSaldo() < 0 && saldoOrcamento >= 0){
+            atualizaSaldoMesOrcamentoPositivo(context, diferenca);
+        }else if(orcamento.getSaldo() < 0 && saldoOrcamento < 0 && orcamento.getSaldo() < saldoOrcamento){
+            Float x = saldoOrcamento - orcamento.getSaldo();
+            atualizaSaldoMesOrcamentoPositivo(context, x);
+        }
+        orcamento.setSaldo(saldoOrcamento);
+        try {
+            orcamentoDao = MyORMLiteHelper.getInstance(context).getOrcamentoDao();
+            Dao.CreateOrUpdateStatus resOrc = orcamentoDao.createOrUpdate(orcamento);
+            if(resOrc.isCreated()){
+                System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+            }else if(resOrc.isUpdated()){
+                System.out.println("RENDA DO MES ATUALIZADA COM SUCESSO");
+            }else{
+                System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //NA EDIÇÃO DO GASTO A FORMA ANTIGA ERA OUTROS A NOVA CREDITO
+    public void attGastoSaldoParaCred(Context context, Float valor, Float valorCartao, Orcamento orcamento){
+        mes = retornaMesAtual(context);
+        cartaoMes = mes.getCartaoMesAtual();
+        cartaoMes = cartaoMes + valorCartao;
+        saldoMes = mes.getSaldoMensal();
+        saldoOrcamento = orcamento.getSaldo();
+        saldoOrcamento = saldoOrcamento + valor;
+        saldoMes = saldoMes - diferenca;
+        orcamento.setSaldo(saldoOrcamento);
+        mes.setCartaoMesAtual(cartaoMes);
+        try {
+            mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+            Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mes);
+            if(res.isCreated()){
+                System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+            }else if(res.isUpdated()){
+                System.out.println("RENDA DO MES ATUALIZADA COM SUCESSO");
+            }else{
+                System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            orcamentoDao = MyORMLiteHelper.getInstance(context).getOrcamentoDao();
+            Dao.CreateOrUpdateStatus resOrc = orcamentoDao.createOrUpdate(orcamento);
+            if(resOrc.isCreated()){
+                System.out.println("ALGO ESTA ESTRANHO NESSA BAGACA");
+            }else if(resOrc.isUpdated()){
+                System.out.println("RENDA DO MES ATUALIZADA COM SUCESSO");
+            }else{
+                System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //ATUALIZA O SALDO DO MES QUANDO UM ORCAMENTO FOR ATUALIZADO
+    public Float retornaEAtualizaTotalDeGastos(Context context){
+        mes = retornaMesAtual(context);
+        orcamentos = retornaListaDeOrcamentosAtuais(context);
+        valorOrcamentos = Float.valueOf("0");
+        for(int x = 0; x < orcamentos.size(); x++){
+            if(!orcamentos.get(x).getFormadePagamento().equals(context.getResources().getString(R.string.credito))){
+                if(orcamentos.get(x).getSaldo() < 0){
+                    valorOrcamentos = valorOrcamentos + (orcamentos.get(x).getValorInicial() + (orcamentos.get(x).getSaldo() * -1));
+                }else {
+                    valorOrcamentos = valorOrcamentos + orcamentos.get(x).getValorInicial();
+                }
+            }
+        }
+        return valorOrcamentos;
+    }
+
+    //ATUALIZA O SALDO DO MES QUANDO UM ORCAMENTO FOR ATUALIZADO E O SALDO ANTIGO ERA POSITIVO E O NOVO FOR NEGATIVO
+    public void atualizaSaldoMesOrcamentoNegativo(Context context, Float saldoAntigo, Float saldoNovo){
+        mes = retornaMesAtual(context);
+        Float diferencaDeSaldo, diferenca, mesSaldo;
+        mesSaldo = mes.getSaldoMensal();
+        if(saldoAntigo > 0){
+            diferencaDeSaldo = saldoAntigo;
+        }else {
+            diferencaDeSaldo = Float.valueOf("0");
+        }
+        diferenca = (saldoAntigo - saldoNovo) - diferencaDeSaldo;
+        mesSaldo = mesSaldo - diferenca;
+        mes.setSaldoMensal(mesSaldo);
+        try {
+            mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+            Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mes);
+            if(res.isUpdated()){
+                System.out.println("ATUALIZOU O SALDO DO MES COM SUCESSO");
+            }else {
+                System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //ATUALIZA O SALDO DO MES QUANDO UM ORCAMENTO FOR ATUALIZADO E O SALDO ANTIGO ERA NEGATIVO E O NOVO FOR POSITIVO
+    public void atualizaSaldoMesOrcamentoPositivo(Context context, Float valorNovo){
+        mes = retornaMesAtual(context);
+        Float mesSaldo;
+        mesSaldo = mes.getSaldoMensal();
+        mesSaldo = mesSaldo + valorNovo;
+        mes.setSaldoMensal(mesSaldo);
+        try {
+            mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+            Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mes);
+            if(res.isUpdated()){
+                System.out.println("ATUALIZOU O SALDO DO MES COM SUCESSO");
+            }else {
+                System.out.println("ERRO AO ATUALIZAR O SALDO DO MES");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //APAGA OS GASTOS DE UM ITEM DE ORCAMENTO
+    public void apagarGastos(Context context, Orcamento orcamento){
+        gastos = retornaListaDeGastos(context, orcamento);
+        try {
+            gastoDao = MyORMLiteHelper.getInstance(context).getGastoDao();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for(int x = 0; x < gastos.size(); x++){
+            try {
+                gastoDao.delete(gastos.get(x));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        /*
+        TODO OU
+        for(int x = gastos.size(); x <= 0; x--){
+            try {
+                gastoDao.delete(gastos.get(x));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+         */
+    }
 }

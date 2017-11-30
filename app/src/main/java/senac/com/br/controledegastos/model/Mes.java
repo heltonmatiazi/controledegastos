@@ -20,7 +20,7 @@ public class Mes implements Serializable{
     @DatabaseField
     private String ano;
 
-    @ForeignCollectionField
+    @ForeignCollectionField(eager = true)
     private Collection<Orcamento> listaOrcamentos;
 
     @DatabaseField
@@ -33,7 +33,13 @@ public class Mes implements Serializable{
     private Float renda;
 
     @DatabaseField
+    private Float saldoMensal;
+
+    @DatabaseField
     private boolean mesAtual;
+
+    @DatabaseField
+    private Float notificar;
 
     // initializing empty constructor;
     public Mes(){
@@ -44,16 +50,18 @@ public class Mes implements Serializable{
         this.id = id;
     }
 
-    public Mes(String nome, String ano, Float cartaoMesAtual, Float cartaoMesAnterior, Float renda, boolean mesAtual) {
+    public Mes(String nome, String ano, Float cartaoMesAtual, Float cartaoMesAnterior, Float renda, Float saldoMensal, boolean mesAtual, Float notificar) {
         this.nome = nome;
         this.ano = ano;
         this.cartaoMesAtual = cartaoMesAtual;
         this.cartaoMesAnterior = cartaoMesAnterior;
         this.renda = renda;
+        this.saldoMensal = saldoMensal;
         this.mesAtual = mesAtual;
+        this.notificar = notificar;
     }
 
-    public Mes(Integer id, String nome, String ano, Collection<Orcamento> listaOrcamentos, Float cartaoMesAtual, Float cartaoMesAnterior, Float renda, boolean mesAtual) {
+    public Mes(Integer id, String nome, String ano, Collection<Orcamento> listaOrcamentos, Float cartaoMesAtual, Float cartaoMesAnterior, Float renda, Float saldoMensal, boolean mesAtual, Float notificar) {
         this.id = id;
         this.nome = nome;
         this.ano = ano;
@@ -61,7 +69,9 @@ public class Mes implements Serializable{
         this.cartaoMesAtual = cartaoMesAtual;
         this.cartaoMesAnterior = cartaoMesAnterior;
         this.renda = renda;
+        this.saldoMensal = saldoMensal;
         this.mesAtual = mesAtual;
+        this.notificar = notificar;
     }
 
     public Integer getId() {
@@ -126,6 +136,22 @@ public class Mes implements Serializable{
 
     public void setMesAtual(boolean mesAtual) {
         this.mesAtual = mesAtual;
+    }
+
+    public Float getSaldoMensal() {
+        return saldoMensal;
+    }
+
+    public void setSaldoMensal(Float saldoMensal) {
+        this.saldoMensal = saldoMensal;
+    }
+
+    public Float getNotificar() {
+        return notificar;
+    }
+
+    public void setNotificar(Float notificar) {
+        this.notificar = notificar;
     }
 
 }

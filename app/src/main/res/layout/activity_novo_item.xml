@@ -7,24 +7,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="5dp"
+    android:background="#fdf3d9"
     tools:context="senac.com.br.controledegastos.activities.NovoItemActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/nomedoItem"
-        android:layout_marginBottom="2dp"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="5dp"
+        style="@style/txt"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/nomeItem"
         android:id="@+id/nomeItem"
-        android:layout_marginBottom="2dp"/>
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="5dp"
+        style="@style/edit"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
@@ -33,8 +43,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:layout_marginEnd="2dp"
-            android:text="@string/rb_multipla" />
+            android:layout_marginBottom="2dp"
+            android:text="@string/rb_multipla"
+            android:onClick="cbMultiplasHide"
+            style="@style/edit"/>
 
 
         <TextView
@@ -46,7 +58,8 @@
             android:onClick="mostrar_esconder_ajuda"
             android:text="@string/tv_ajuda"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            style="@style/txt" />
 
     </LinearLayout>
 
@@ -66,7 +79,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
             android:text="@string/texto_ajuda0"
-            android:onClick="mostrar_esconder"
+            android:onClick="mostrar_esconder_ajuda"
             android:layout_marginBottom="2dp"
             style="@style/txt_help"/>
 
@@ -77,7 +90,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
             android:text="@string/texto_ajuda1"
-            android:onClick="mostrar_esconder"
+            android:onClick="mostrar_esconder_ajuda"
             android:layout_marginBottom="2dp"
             style="@style/txt_help"/>
 
@@ -88,7 +101,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
             android:text="@string/texto_ajuda2"
-            android:onClick="mostrar_esconder"
+            android:onClick="mostrar_esconder_ajuda"
             android:layout_marginBottom="2dp"
             style="@style/txt_help"/>
 
@@ -99,9 +112,38 @@
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
             android:text="@string/texto_ajuda3"
-            android:onClick="mostrar_esconder"
+            android:onClick="mostrar_esconder_ajuda"
             android:layout_marginBottom="2dp"
             style="@style/txt_help"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linearPagamento">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hintFormaPagto"
+            style="@style/txt"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerPagamentoItem"
+            android:entries="@array/spinnerItems"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            style="@style/spinner">
+
+        </Spinner>
 
     </LinearLayout>
 
@@ -111,36 +153,39 @@
         android:text="@string/valordoGasto"
         android:textStyle="bold"
         android:textSize="15dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+        android:layout_marginRight="4dp"
+        style="@style/txt"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/valorGasto"
         android:id="@+id/valorItem"
-        android:inputType="numberDecimal"
-        android:layout_marginBottom="1dp"
+        android:inputType="numberDecimal|numberSigned"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+        android:layout_marginRight="4dp"
+        style="@style/edit"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/salvar"
         android:onClick="salvarItem"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+        android:layout_marginRight="4dp"
+        style="@style/button"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_voltar"
         android:onClick="voltar"
-        android:layout_marginBottom="1dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+        android:layout_marginRight="4dp"
+        style="@style/button"/>
 
 </LinearLayout>

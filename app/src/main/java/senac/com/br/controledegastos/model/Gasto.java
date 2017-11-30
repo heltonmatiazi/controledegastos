@@ -26,7 +26,7 @@ public class Gasto implements Serializable {
     private Float valor;
 
     @DatabaseField
-    private Date date;
+    private String date;
 
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Orcamento orcamento;
@@ -40,7 +40,7 @@ public class Gasto implements Serializable {
         this.id = id;
     }
 
-    public Gasto(String nome, String local, String formadePagamento, Float valor, Date date, Orcamento orcamento) {
+    public Gasto(String nome, String local, String formadePagamento, Float valor, String date, Orcamento orcamento) {
         this.nome = nome;
         this.local = local;
         this.formadePagamento = formadePagamento;
@@ -49,7 +49,7 @@ public class Gasto implements Serializable {
         this.orcamento = orcamento;
     }
 
-    public Gasto(Integer id, String nome, String local, String formadePagamento, Float valor, Date date, Orcamento orcamento) {
+    public Gasto(Integer id, String nome, String local, String formadePagamento, Float valor, String date, Orcamento orcamento) {
         this.id = id;
         this.nome = nome;
         this.local = local;
@@ -99,11 +99,11 @@ public class Gasto implements Serializable {
         this.valor = valor;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -114,5 +114,4 @@ public class Gasto implements Serializable {
     public void setOrcamento(Orcamento orcamento) {
         this.orcamento = orcamento;
     }
-
 }

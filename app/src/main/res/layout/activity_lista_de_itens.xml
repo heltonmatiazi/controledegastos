@@ -10,9 +10,9 @@
     tools:context="senac.com.br.controledegastos.activities.ListaDeItensDeOrcamentoActivity">
 
     <TextView
+        android:id="@+id/tvCabecalho"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/msg_orcamentos_atual"
         android:textAlignment="center"
         android:textColor="#000"
         android:textStyle="bold"

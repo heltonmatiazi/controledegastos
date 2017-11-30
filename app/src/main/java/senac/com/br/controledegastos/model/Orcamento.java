@@ -10,7 +10,6 @@ import java.util.Collection;
 
 @DatabaseTable(tableName = "orcamento")
 public class Orcamento implements Serializable {
-
     @DatabaseField(allowGeneratedIdInsert = true, generatedId = true)
     private Integer id;
 
@@ -32,33 +31,38 @@ public class Orcamento implements Serializable {
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Mes mes;
 
+    @DatabaseField
+    private String formadePagamento;
+
     // initializing empty constructor
     public Orcamento(){
-
+        mes = null;
     };
 
     public Orcamento(Integer id){
         this.id = id;
     }
 
-    public Orcamento(String nome, Float saldo, Float valorInicial, boolean gastoMultiplo, Mes mes) {
+    public Orcamento(String nome, Float saldo, Float valorInicial, boolean gastoMultiplo, Mes mes, String formadePagamento) {
         this.nome = nome;
         this.saldo = saldo;
         this.valorInicial = valorInicial;
         this.gastoMultiplo = gastoMultiplo;
         this.mes = mes;
+        this.formadePagamento = formadePagamento;
     }
 
-    public Orcamento(Integer id, String nome, Float saldo, Float valorInicial, boolean gastoMultiplo, Mes mes) {
+    public Orcamento(Integer id, String nome, Float saldo, Float valorInicial, boolean gastoMultiplo, Mes mes, String formadePagamento) {
         this.id = id;
         this.nome = nome;
         this.saldo = saldo;
         this.valorInicial = valorInicial;
         this.gastoMultiplo = gastoMultiplo;
         this.mes = mes;
+        this.formadePagamento = formadePagamento;
     }
 
-    public Orcamento(Integer id, String nome, Float saldo, Float valorInicial, boolean gastoMultiplo, Mes mes, Collection<Gasto> listaDeGastos) {
+    public Orcamento(Integer id, String nome, Float saldo, Float valorInicial, boolean gastoMultiplo, Mes mes, Collection<Gasto> listaDeGastos, String formadePagamento) {
         this.id = id;
         this.nome = nome;
         this.saldo = saldo;
@@ -66,6 +70,7 @@ public class Orcamento implements Serializable {
         this.gastoMultiplo = gastoMultiplo;
         this.mes = mes;
         this.listaDeGastos = listaDeGastos;
+        this.formadePagamento = formadePagamento;
     }
 
     public Integer getId() {
@@ -122,6 +127,14 @@ public class Orcamento implements Serializable {
 
     public void setListaDeGastos(Collection<Gasto> listaDeGastos) {
         this.listaDeGastos = listaDeGastos;
+    }
+
+    public String getFormadePagamento() {
+        return formadePagamento;
+    }
+
+    public void setFormadePagamento(String formadePagamento) {
+        this.formadePagamento = formadePagamento;
     }
 
 }

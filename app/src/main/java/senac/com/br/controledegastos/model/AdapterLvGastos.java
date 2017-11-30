@@ -12,7 +12,6 @@ import senac.com.br.controledegastos.R;
 //Created by Carlos Lohmeyer on 28/09/2017.
 
 public class AdapterLvGastos extends BaseAdapter {
-
     private LayoutInflater inflater;
     Context c;
     private ArrayList<Gasto> gastos;
@@ -49,16 +48,16 @@ public class AdapterLvGastos extends BaseAdapter {
         TextView tvGastos = (TextView) view.findViewById(R.id.tvGastos);
         //Mandando os dados para os elementos do ListView
         if(gasto.getNome().isEmpty()){
-            tvGastos.setText(R.string.to_string_local + " " + gasto.getLocal() + "\n" +
-                    R.string.to_string_data + " " + gasto.getDate() + "\n" +
-                    R.string.to_string_forma + " " + gasto.getFormadePagamento()  + "\n" +
-                    R.string.to_string_valor + " " + gasto.getValor());
+            tvGastos.setText(c.getString(R.string.to_string_local) + " " + gasto.getLocal() + "\n" +
+                    c.getString(R.string.to_string_data) + " " + gasto.getDate() + "\n" +
+                    c.getString(R.string.to_string_forma) + " " + gasto.getFormadePagamento()  + "\n" +
+                    c.getString(R.string.to_string_valor) + " " + gasto.getValor());
         }else {
-            tvGastos.setText(R.string.to_string_nome + " " + gasto.getNome() + "\n" +
-                    R.string.to_string_local + " " + gasto.getLocal() + "\n" +
-                    R.string.to_string_data + " " + gasto.getDate() + "\n" +
-                    R.string.to_string_forma + " " + gasto.getFormadePagamento()  + "\n" +
-                    R.string.to_string_valor + " " + gasto.getValor());
+            tvGastos.setText(c.getString(R.string.to_string_nome) + " " + gasto.getNome() + "\n" +
+                    c.getString(R.string.to_string_local) + " " + gasto.getLocal() + "\n" +
+                    c.getString(R.string.to_string_data) + " " + gasto.getDate() + "\n" +
+                    c.getString(R.string.to_string_forma) + " " + gasto.getFormadePagamento()  + "\n" +
+                    c.getString(R.string.to_string_valor) + " " + gasto.getValor());
         }
         return view;
     }

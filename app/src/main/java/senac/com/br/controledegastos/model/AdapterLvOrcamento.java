@@ -13,7 +13,6 @@ import senac.com.br.controledegastos.R;
 //Created by Carlos Lohmeyer on 28/09/2017.
 
 public class AdapterLvOrcamento extends BaseAdapter {
-
     private LayoutInflater inflater;
     Context c;
     private ArrayList<Orcamento> orcamentos;
@@ -68,7 +67,8 @@ public class AdapterLvOrcamento extends BaseAdapter {
         }
         if(orcamento.isGastoMultiplo() == false){
             tvValores.setTextColor(Color.BLACK);
-            tvValores.setText(c.getString(R.string.lv_valor) + " " + c.getString(R.string.cifrao) + " " + orcamento.getValorInicial());
+            tvValores.setText(c.getString(R.string.lv_valor) + " " + c.getString(R.string.cifrao) + " " + orcamento.getValorInicial() + "\n" +
+                    c.getString(R.string.to_string_forma) + " " + orcamento.getFormadePagamento());
         }else if(orcamento.isGastoMultiplo() == true){
             if(orcamento.getSaldo() > 0){
                 tvValores.setTextColor(Color.BLUE);
