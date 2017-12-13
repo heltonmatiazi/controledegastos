@@ -11,17 +11,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import senac.com.br.controledegastos.DAO.MyORMLiteHelper;
 import senac.com.br.controledegastos.R;
 import senac.com.br.controledegastos.model.AdapterLvOrcamento;
+import senac.com.br.controledegastos.model.Gasto;
 import senac.com.br.controledegastos.model.Mes;
 import senac.com.br.controledegastos.model.Orcamento;
-import senac.com.br.controledegastos.util.ActivityHelper;
 import senac.com.br.controledegastos.util.RetornoDao;
 
 //Created by Carlos Lohmeyer.
@@ -206,4 +204,5 @@ public class ListaDeItensDeOrcamentoActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
+
 }

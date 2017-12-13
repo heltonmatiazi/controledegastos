@@ -8,6 +8,7 @@
     <string name="restanteMes">Saldo do Mês:</string>
     <string name="placeholder_saldo">R$ 0.00</string>
     <string name="gastosMes">Total de Gastos no Mês:</string>
+    <string name="cartaovelho">Cartão do Mês Antetior:</string>
     <string name="dataGasto">Data</string>
     <string name="hintFormaPagto">Insira a Forma de Pagamento</string>
     <string name="localGasto">Insira o Local do Gasto</string>
@@ -119,6 +120,7 @@
     <string name="toast_editar_renda">Novo valor da renda obrigatório!</string>
     <string name="toast_editar_renda_ok">Novo valor de renda atualizado com sucesso!</string>
     <string name="toast_del_orcamento">Orçamento excluido com sucesso!</string>
+    <string name="toast_del_gasto">Gasto excluido com sucesso!</string>
     <string name="msg_add_renda">Este mês não tem uma renda definida. Favor adicionar a sua renda!</string>
     <string name="toast_pagamento">Escolha uma forma de pagamento!</string>
     <string name="msg_add_orcamento_multiplos">Este mês não tem um item de orçamento com entradas múltiplos definido. Favor adicionar um item que seja com entradas múltiplas!</string>
@@ -126,5 +128,11 @@
     <string name="toast_att_mes">Mês atualizado com sucesso!</string>
     <string name="toast_gasto_valor">O valor especificado é inválido!</string>
     <string name="toast_gasto_campos">Preencha os campos corretamente!</string>
-    <string name="ver_cart_o">VER CARTÃO</string>
+    <string name="notification_atencao">Atenção Usuário!</string>
+    <string name="notification_ok">OK</string>
+    <string name="notification_msg">Saldo limite atingido!</string>
+    <string name="toast_reciever">Usuário Notificado!</string>
+    <string name="aviso">Caro usuário, na edição de um item de orçamento não é possível alterar este campo, ou seja, ele fica desabilitado.</string>
+    <string name="toast_cartao">Total do cartão de crédito para o mês seguinte: R$</string>
+    <string name="action_tutorial">Tutorial</string>
 </resources>

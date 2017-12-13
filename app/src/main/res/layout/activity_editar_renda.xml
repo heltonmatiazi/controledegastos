@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#fdf3d9"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
     tools:context=".activities.EditarRendaActivity">
 
     <LinearLayout
@@ -160,24 +162,35 @@
         android:id="@+id/editNotificar"
         android:hint="@string/hint_notificar"/>
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="5dp"
-        style="@style/button"
-        android:text="@string/btn_editar"
-        android:onClick="editarRenda"/>
+        android:orientation="horizontal">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="5dp"
-        style="@style/button"
-        android:text="@string/btn_voltar"
-        android:onClick="voltar"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="5dp"
+            android:drawableStart="@android:drawable/ic_menu_edit"
+            style="@style/button"
+            android:text="@string/btn_editar"
+            android:onClick="editarRenda"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="5dp"
+            android:drawableStart="@android:drawable/ic_menu_revert"
+            style="@style/button"
+            android:text="@string/btn_voltar"
+            android:onClick="voltar"/>
+
+    </LinearLayout>
 
 </LinearLayout>

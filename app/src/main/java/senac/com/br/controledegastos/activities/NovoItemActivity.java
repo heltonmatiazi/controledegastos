@@ -1,7 +1,19 @@
 package senac.com.br.controledegastos.activities;
 
+import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
@@ -15,6 +27,8 @@ import senac.com.br.controledegastos.DAO.MyORMLiteHelper;
 import senac.com.br.controledegastos.R;
 import senac.com.br.controledegastos.model.Mes;
 import senac.com.br.controledegastos.model.Orcamento;
+import senac.com.br.controledegastos.util.Constantes;
+import senac.com.br.controledegastos.util.Notificador;
 import senac.com.br.controledegastos.util.RetornoDao;
 
 //Created by Carlos Lohmeyer.
@@ -26,7 +40,7 @@ public class NovoItemActivity extends AppCompatActivity {
     private EditText editNomeItem, editValorItem;
     private LinearLayout linear_ajuda, linearPagamento;
     private boolean visao = true;
-    private Mes mes;
+    private Mes mes, mes2;
     private Float valor, valorAntigo, diferencaSaldoOrc, saldoOrcamento;
     private CheckBox cbMultiplas;
     private String value, forma, formaAntiga;
@@ -34,6 +48,7 @@ public class NovoItemActivity extends AppCompatActivity {
     private Spinner pagamentoItem;
     private Bundle params;
     private int indiceForma;
+    private Intent notificationIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +78,14 @@ public class NovoItemActivity extends AppCompatActivity {
                     }
                 }
                 pagamentoItem.setSelection(indiceForma);
+                if(cbMultiplas.callOnClick()) {
+                    AlertDialog.Builder alerta = new AlertDialog.Builder(NovoItemActivity.this);
+                    alerta.setTitle(R.string.notification_atencao);
+                    alerta.setIcon(android.R.drawable.ic_dialog_alert);
+                    alerta.setMessage(getString(R.string.aviso));
+                    alerta.setNeutralButton(R.string.notification_ok, null);
+                    alerta.show();
+                }
                 cbMultiplas.setClickable(false);
             }
         }catch (Exception e){
@@ -88,6 +111,7 @@ public class NovoItemActivity extends AppCompatActivity {
         linear_ajuda = (LinearLayout)findViewById(R.id.linear_ajuda);
         linearPagamento = (LinearLayout)findViewById(R.id.linearPagamento);
         mes = new Mes();
+        mes2 = new Mes();
         cbMultiplas = (CheckBox)findViewById(R.id.cbMultiplas);
         pagamentoItem = (Spinner) findViewById(R.id.spinnerPagamentoItem);
         params = new Bundle();
@@ -304,9 +328,42 @@ public class NovoItemActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+        mes2 = retornoDao.retornaMesAtual(this);
+        if(mes2.getSaldoMensal() <= mes2.getNotificar()){
+            notificationIntent = new Intent(this, Notificador.class);
+            notificar(getNotification(getString(R.string.notification_msg)));
+        }
+
         orcamento = new Orcamento();
         editNomeItem.setText("");
         editValorItem.setText("");
         voltar(view);
     }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private Notification getNotification(String texto){
+        Notification.Builder notificacao = new Notification.Builder(this);
+        notificacao.setContentTitle(getString(R.string.notification_atencao));
+        notificacao.setContentText(texto);
+        notificacao.setSmallIcon(R.drawable.ic_money);
+        //SETVIBRAÇÃO
+        notificacao.setVibrate(new long[]{150, 300, 150, 600});
+        //SETSOM;
+        notificacao.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        //ADICIONAR OPÇOES
+       notificationIntent.putExtra("acao", Constantes.BROADCAST_EXECUTAR_ACAO);
+        notificationIntent.putExtra("idNotificacao", mes2.getId());
+        PendingIntent pendent1 = PendingIntent.getBroadcast(this, Constantes.BROADCAST_EXECUTAR_ACAO, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notificacao.addAction(android.R.drawable.ic_menu_close_clear_cancel, getString(R.string.notification_ok), pendent1);
+
+        notificacao.setAutoCancel(true);
+        return notificacao.build();
+    }
+
+    private void notificar(Notification notification){
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(mes2.getId(), notification);
+    }
+
 }

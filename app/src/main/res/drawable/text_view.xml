@@ -21,4 +21,4 @@
         android:topLeftRadius="10dp"
         android:topRightRadius="10dp"/>
 
-</shape>
+</shape><!-- TODO  obsservar diferenças no gradiente android:startColor="#dcedaa" e android:endColor="#d5e6a5" -->

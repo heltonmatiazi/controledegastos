@@ -114,4 +114,5 @@ public class Gasto implements Serializable {
     public void setOrcamento(Orcamento orcamento) {
         this.orcamento = orcamento;
     }
+
 }

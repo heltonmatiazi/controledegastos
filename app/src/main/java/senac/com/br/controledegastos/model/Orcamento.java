@@ -10,6 +10,7 @@ import java.util.Collection;
 
 @DatabaseTable(tableName = "orcamento")
 public class Orcamento implements Serializable {
+
     @DatabaseField(allowGeneratedIdInsert = true, generatedId = true)
     private Integer id;
 

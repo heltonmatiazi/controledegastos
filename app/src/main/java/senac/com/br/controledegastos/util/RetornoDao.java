@@ -1,34 +1,43 @@
 package senac.com.br.controledegastos.util;
 
-//Created by Carlos Lohmeyer on 19/10/2017.
-
 import android.content.Context;
-import android.widget.Toast;
-
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.PreparedUpdate;
+import com.j256.ormlite.field.types.StringBytesType;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import senac.com.br.controledegastos.DAO.MyORMLiteHelper;
-import senac.com.br.controledegastos.activities.NovoItemActivity;
 import senac.com.br.controledegastos.model.Gasto;
 import senac.com.br.controledegastos.model.Mes;
 import senac.com.br.controledegastos.model.Orcamento;
 import senac.com.br.controledegastos.R;
+
+// Created by Carlos Lohmeyer on 19/10/2017.
 
 public class RetornoDao{
 
     private Dao<Mes, Integer> mesDao;
     private Dao<Orcamento, Integer> orcamentoDao;
     private Dao<Gasto, Integer> gastoDao;
-    private Mes mes, mesTeste1, mesTeste2;
+    private Mes mes, mesTeste1, mesTeste2, mesRetorno;
     private String nome;
     private ArrayList<Mes> meses;
     private ArrayList<Orcamento> orcamentos, orcamentos1;
     private ArrayList<Gasto> gastos, gastos1;
     private Float gastoTotal, saldoMes, saldoOrcamento, rendaMes, cartaoMes, cartaoOrcamento, valorOrcamentos, diferenca;
     private boolean condicional;
+
+    //RETORNA APENAS O MÊS ATUAL
+    public void instanciarMes(Context context, String data) throws SQLException {
+        iniciar();
+        mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
+        meses = (ArrayList<Mes>) mesDao.queryForAll();
+        if (meses.isEmpty()) {
+            inserirPrimeiroMes(context, data);
+        }else {
+                return;
+        }
+    }
 
     //RETORNA APENAS O MÊS ATUAL
     public Mes retornaMesAtual(Context context){
@@ -195,8 +204,6 @@ public class RetornoDao{
         if(mesBanco.getNome().equals(nomeMes) && mesBanco.getAno().equals(ano)){
             return true;
         }else {
-            System.out.println("ERRO DE INICIAÇÃO MÊS DO BANCO " + mesBanco.getNome() + " E ANO " + mesBanco.getAno());
-            System.out.println("ERRO DE INICIAÇÃO MÊS DA DATA " + mes + " E ANO " + ano);
             return false;
         }
     }
@@ -241,24 +248,27 @@ public class RetornoDao{
         mes = new Mes();
         mesTeste1 = new Mes();
         mesTeste2 = new Mes();
+        mesRetorno = new Mes();
     }
 
     //MÉTODOS ABAIXO PARA INSERIR DADOS DE MES NO BANCO
-    public void inserirMesParaTeste(Context context) throws SQLException {
+    public void inserirPrimeiroMes(Context context, String data) throws SQLException {
         iniciar();
-        meses = retornaListaDeMeses(context);
+        String date[] = data.split("/");
+        String mes = date[1];
+        String ano = date[2];
+        Integer numeroMes = Integer.valueOf(mes);
+        String nomeMes = retornarNomeMes(numeroMes, context);
         if(meses.isEmpty()){
-            mesTeste1.setId(1);
-            mesTeste1.setNome("OUTUBRO");
-            mesTeste1.setAno("2017");
+            mesTeste1.setNome(nomeMes);
+            mesTeste1.setAno(ano);
             mesTeste1.setMesAtual(true);
             mesTeste1.setCartaoMesAnterior(null);
             mesTeste1.setCartaoMesAtual(null);
             mesTeste1.setRenda(null);
             mesTeste1.setSaldoMensal(null);
-            mes.setNotificar(null);
+            mesTeste1.setNotificar(null);
             mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
-
             Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mesTeste1);
             if(res.isCreated()){
                 System.out.println("OBJETO mesTeste1 CRIADO COM SUCESSO!!!" + "\n");
@@ -267,12 +277,10 @@ public class RetornoDao{
             }else{
                 System.out.println("OBJETO mesTeste1 ERRO INESPERADO!!!" + "\n");
             }
-            inserirMesParaTeste2(context, mesTeste1);
-            inserirMesParaTeste3(context);
         }
     }
 
-    public void inserirMesParaTeste2(Context context, Mes m) throws SQLException {
+    public void fecharMes(Context context, Mes m) throws SQLException {
         iniciar();
         mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
         m.setMesAtual(false);
@@ -287,27 +295,70 @@ public class RetornoDao{
         }
     }
 
-    public void inserirMesParaTeste3(Context context) throws SQLException {
+    //MARCA O MES QUE TERMINOU COM FALSE NA VARIAVEL MESATUAL E INICIA UM MES NOVO E UNICO
+    public void iniciarNovoMes(Context context, String data) throws SQLException {
         iniciar();
+        mesRetorno = retornaMesUnico(context,data);
+        mes = retornaMesAtual(context);
+        fecharMes(context, mes);
         mesDao = MyORMLiteHelper.getInstance(context).getMesDao();
-        mesTeste2.setId(2);
-        mesTeste2.setNome("NOVEMBRO");
-        mesTeste2.setAno("2017");
-        mesTeste2.setMesAtual(true);
-        mesTeste2.setCartaoMesAnterior(null);
-        mesTeste2.setCartaoMesAtual(null);
-        mesTeste2.setSaldoMensal(null);
-        mesTeste2.setRenda(null);
-        mes.setNotificar(null);
-
-        Dao.CreateOrUpdateStatus res2 = mesDao.createOrUpdate(mesTeste2);
-        if(res2.isCreated()){
-            System.out.println("OBJETO mesTeste2 CRIADO COM SUCESSO!!!" + "\n");
-        }else if(res2.isUpdated()){
-            System.out.println("OBJETO mesTeste2 ATUALIZADO COM SUCESSO!!!" + "\n");
-        }else{
-            System.out.println("OBJETO mesTeste2 ERRO INESPERADO!!!" + "\n");
+        if(mesRetorno == null){
+            String date[] = data.split("/");
+            String mesData = date[1];
+            String ano = date[2];
+            Integer numeroMes = Integer.valueOf(mesData);
+            String nomeMes = retornarNomeMes(numeroMes, context);
+            mesTeste2.setNome(nomeMes);
+            mesTeste2.setAno(ano);
+            mesTeste2.setMesAtual(true);
+            mesTeste2.setCartaoMesAnterior(mes.getCartaoMesAtual());
+            mesTeste2.setCartaoMesAtual(null);
+            mesTeste2.setSaldoMensal(null);
+            mesTeste2.setRenda(mes.getRenda());
+            mesTeste2.setNotificar(mes.getNotificar());
+            Dao.CreateOrUpdateStatus res = mesDao.createOrUpdate(mesTeste2);
+            if(res.isCreated()){
+                System.out.println("OBJETO mesTeste2 CRIADO COM SUCESSO!!!" + "\n");
+            }else if(res.isUpdated()){
+                System.out.println("OBJETO mesTeste2 ERRO NA BAGAÇA!!!" + "\n");
+            }else{
+                System.out.println("OBJETO mesTeste2 ERRO INESPERADO!!!" + "\n");
+            }
+        }else if(mesRetorno != null){
+            mesRetorno.setMesAtual(true);
+            Dao.CreateOrUpdateStatus res1 = mesDao.createOrUpdate(mesRetorno);
+            if(res1.isCreated()){
+                System.out.println("OBJETO mesRetorno ERRO NA BAGAÇA!!!" + "\n");
+            }else if(res1.isUpdated()){
+                System.out.println("OBJETO mesRetorno ATUALIZADO COM SUCESSO!!!" + "\n");
+            }else{
+                System.out.println("OBJETO mesRetorno ERRO INESPERADO!!!" + "\n");
+            }
         }
+
+    }
+
+    //TODO AQUI A MAGICA COMECA PARA EVITAR DOIS MESES COM MESMO NOME
+    public Mes retornaMesUnico(Context context, String data){
+        iniciar();
+        meses = retornaListaDeMeses(context);
+        mes = retornaMesAtual(context);
+        String date[] = data.split("/");
+        String mesData = date[1];
+        String ano = date[2];
+        Integer numeroMes = Integer.valueOf(mesData);
+        String nomeMes = retornarNomeMes(numeroMes, context);
+        condicional = false;
+        for(int zz = 0; zz < meses.size(); zz++){
+            if(meses.get(zz).getNome().equals(nomeMes) && meses.get(zz).getAno().equals(ano)){
+                condicional = true;
+                mesRetorno = meses.get(zz);
+            }
+        }
+        if(condicional == false){
+            mesRetorno = null;
+        }
+        return mesRetorno;
     }
 
     //ATUALIZA O SALDO MENSAL QUANDO UM ORÇAMENTO FOR ADICIONADO
@@ -509,6 +560,19 @@ public class RetornoDao{
             }
         }
         return diferenca;
+    }
+
+    //RETORNA UM ORCAMENTO A PARTIR DE UM GASTO
+    public Orcamento retornaOrcamento( Context context, Integer id){
+        iniciar();
+        Orcamento orc = new Orcamento();
+        orcamentos = retornaListaDeOrcamentosAtuais(context);
+        for(int x = 0; x < orcamentos.size(); x++){
+            if(orcamentos.get(x).getId().equals(id)){
+                orc = orcamentos.get(x);
+            }
+        }
+        return orc;
     }
 
     //NA EDIÇÃO DO GASTO A FORMA ANTIGA ERA CREDITO E A NOVA CREDITO - VALOR A MAIS
@@ -756,16 +820,6 @@ public class RetornoDao{
                 e.printStackTrace();
             }
         }
-        /*
-        TODO OU
-        for(int x = gastos.size(); x <= 0; x--){
-            try {
-                gastoDao.delete(gastos.get(x));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-         */
     }
+
 }

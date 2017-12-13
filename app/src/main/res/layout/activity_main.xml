@@ -39,11 +39,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:textStyle="bold"
-                android:textColor="#000"
+                android:id="@+id/nomoSaldo"
                 android:text="@string/restanteMes"
                 android:layout_marginRight="2dp"
-                style="@style/txt"
-                tools:ignore="RtlHardcoded"/>
+                style="@style/txt"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -83,29 +82,70 @@
 
         </LinearLayout>
 
-        <Button
-            android:layout_below="@+id/layout3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxHeight="42dp"
-            android:text="@string/adicionar_gasto"
-            android:drawableStart="@drawable/cash"
-            android:onClick="adicionarGasto"
-            android:scaleType="fitCenter"
+        <LinearLayout
+            android:layout_below="@id/layout3"
             android:id="@+id/layout4"
-            android:adjustViewBounds="true"
-            style="@style/button"/>
-
-        <Button
-            android:layout_below="@+id/layout4"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxHeight="42dp"
-            android:text="@string/ver_cart_o"
-            android:onClick="verCartao"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            style="@style/button"/>
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:text="@string/cartaovelho"
+                style="@style/txt"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:id="@+id/cartaoAnterior"
+                style="@style/txt"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@id/layout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout5"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:maxHeight="42dp"
+                android:layout_gravity="center"
+                android:text="@string/adicionar_gasto"
+                android:drawableStart="@drawable/cash"
+                android:onClick="adicionarGasto"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                style="@style/button"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:maxHeight="42dp"
+                android:drawableStart="@android:drawable/ic_menu_view"
+                android:text="VER CARTÃO"
+                android:onClick="verCartao"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                style="@style/button"/>
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 

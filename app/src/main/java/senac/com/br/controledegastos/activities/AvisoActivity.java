@@ -1,6 +1,5 @@
 package senac.com.br.controledegastos.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,13 +13,12 @@ import com.github.paolorotolo.appintro.AppIntro;
 
 import senac.com.br.controledegastos.R;
 import senac.com.br.controledegastos.components.SampleSlide;
-import senac.com.br.controledegastos.util.ActivityHelper;
 
 public class AvisoActivity extends AppIntro {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityHelper.initialize(this);
         addSlide(SampleSlide.newInstance(R.layout.aviso_slide_1));
         showSkipButton(false);
         setSlideOverAnimation();
@@ -30,16 +28,18 @@ public class AvisoActivity extends AppIntro {
         super.onSkipPressed(currentFragment);
         finish();
     }
+
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
-        Intent orc = new Intent(this,ListaDeItensDeOrcamentoActivity.class);
-        startActivity(orc);
+        finish();
     }
+
     @Override
     public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);
     }
-};
+
+    };
 
 

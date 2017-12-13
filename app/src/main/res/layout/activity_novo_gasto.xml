@@ -1,149 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fdf3d9"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
     tools:context="senac.com.br.controledegastos.activities.NovoGastoActivity">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/nomedoGasto"
-        style="@style/txt"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/nomeGasto"
-        android:id="@+id/nomeGasto"
-        style="@style/edit"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/localdoGasto"
-        style="@style/txt"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/localGasto"
-        android:id="@+id/localGasto"
-        style="@style/edit"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tipo_de_gasto"
+                style="@style/txt"
+                android:layout_marginBottom="5dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hintFormaPagto"
-        style="@style/txt"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/orcamentoSpinner"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                style="@style/spinner">
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/SpinnerFormaPagamento"
-        android:entries="@array/spinnerItems"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        style="@style/spinner">
+            </Spinner>
 
-    </Spinner>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nomedoGasto"
+                style="@style/txt"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/valorGasto"
-        android:text="@string/valordoGasto"
-        style="@style/txt"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/nomeGasto"
+                android:id="@+id/nomeGasto"
+                style="@style/edit"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/valorGasto"
-        style="@style/edit"
-        android:inputType="numberDecimal"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/localdoGasto"
+                style="@style/txt"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/dataGasto"
-        style="@style/txt"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/localGasto"
+                android:id="@+id/localGasto"
+                style="@style/edit"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tipo_de_gasto"
-        style="@style/txt"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hintFormaPagto"
+                style="@style/txt"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"/>
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/orcamentoSpinner"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        style="@style/spinner">
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/SpinnerFormaPagamento"
+                android:entries="@array/spinnerItems"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                style="@style/spinner">
 
-    </Spinner>
+            </Spinner>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/capturaData"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/valordoGasto"
+                style="@style/txt"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/salvar"
-        android:onClick="salvarGasto"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        style="@style/button"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/valorGasto"
+                android:id="@+id/valorGasto"
+                style="@style/edit"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_voltar"
-        android:onClick="voltar"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        style="@style/button"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dataGasto"
+                    style="@style/txt"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    style="@style/txt"
+                    android:id="@+id/capturaData"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/salvar"
+                    android:onClick="salvarGasto"
+                    android:drawableStart="@android:drawable/ic_menu_save"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    style="@style/button"/>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_voltar"
+                    android:drawableStart="@android:drawable/ic_menu_revert"
+                    android:onClick="voltar"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    style="@style/button"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

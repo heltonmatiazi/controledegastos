@@ -1,6 +1,13 @@
 package senac.com.br.controledegastos.activities;
 
+import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,25 +15,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.j256.ormlite.dao.Dao;
-
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import senac.com.br.controledegastos.DAO.MyORMLiteHelper;
 import senac.com.br.controledegastos.R;
 import senac.com.br.controledegastos.model.AdapterSpinnerOrcamento;
 import senac.com.br.controledegastos.model.Gasto;
 import senac.com.br.controledegastos.model.Mes;
 import senac.com.br.controledegastos.model.Orcamento;
-import senac.com.br.controledegastos.util.ActivityHelper;
+import senac.com.br.controledegastos.util.Constantes;
+import senac.com.br.controledegastos.util.Notificador;
 import senac.com.br.controledegastos.util.RetornoDao;
-
-import static java.lang.Float.parseFloat;
 
 //Created by Carlos Lohmeyer.
 
@@ -35,7 +38,7 @@ public class NovoGastoActivity extends AppCompatActivity {
     private EditText nomeGasto, localGasto, valorGasto;
     private TextView capturaData;
     private Spinner formaPagto, orcamentoSpinner;
-    private Mes mes;
+    private Mes mes, mes2;
     private Orcamento orcamento;
     private Gasto gasto;
     private ArrayList<Orcamento> orcamentos;
@@ -48,6 +51,7 @@ public class NovoGastoActivity extends AppCompatActivity {
     private String dataFormatada, formaAntiga;
     private Bundle params;
     private int indice, indiceForma;
+    private Intent notificationIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +129,7 @@ public class NovoGastoActivity extends AppCompatActivity {
         formaPagto = (Spinner) findViewById(R.id.SpinnerFormaPagamento);
         orcamentoSpinner = (Spinner) findViewById(R.id.orcamentoSpinner);
         mes = new Mes();
+        mes2 = new Mes();
         orcamento = new Orcamento();
         orcamentos = new ArrayList<Orcamento>();
         retornoDao = new RetornoDao();
@@ -303,6 +308,13 @@ public class NovoGastoActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+        mes2 = retornoDao.retornaMesAtual(this);
+        if(mes2.getSaldoMensal() <= mes2.getNotificar()){
+            notificationIntent = new Intent(this, Notificador.class);
+            notificar(getNotification(getString(R.string.notification_msg)));
+        }
+
         gasto = new Gasto();
         nomeGasto.setText("");
         localGasto.setText("");
@@ -314,4 +326,30 @@ public class NovoGastoActivity extends AppCompatActivity {
         Intent i = new Intent(this,MainActivity.class);
         startActivity(i);
     }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private Notification getNotification(String texto){
+        Notification.Builder notificacao = new Notification.Builder(this);
+        notificacao.setContentTitle(getString(R.string.notification_atencao));
+        notificacao.setContentText(texto);
+        notificacao.setSmallIcon(R.drawable.ic_money);
+        //SETVIBRAÇÃO
+        notificacao.setVibrate(new long[]{150, 300, 150, 600});
+        //SETSOM;
+        notificacao.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        //ADICIONAR OPÇOES
+        notificationIntent.putExtra("acao", Constantes.BROADCAST_EXECUTAR_ACAO);
+        notificationIntent.putExtra("idNotificacao", mes2.getId());
+        PendingIntent pendent1 = PendingIntent.getBroadcast(this, Constantes.BROADCAST_EXECUTAR_ACAO, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notificacao.addAction(android.R.drawable.ic_menu_close_clear_cancel, getString(R.string.notification_ok), pendent1);
+
+        notificacao.setAutoCancel(true);
+        return notificacao.build();
+    }
+
+    private void notificar(Notification notification){
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(mes2.getId(), notification);
+    }
+
 }

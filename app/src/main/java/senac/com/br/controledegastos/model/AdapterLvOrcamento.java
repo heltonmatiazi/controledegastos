@@ -7,12 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import senac.com.br.controledegastos.R;
 
 //Created by Carlos Lohmeyer on 28/09/2017.
 
 public class AdapterLvOrcamento extends BaseAdapter {
+
     private LayoutInflater inflater;
     Context c;
     private ArrayList<Orcamento> orcamentos;
@@ -50,7 +53,13 @@ public class AdapterLvOrcamento extends BaseAdapter {
         //Resgatar o TextView para a insercao do contexto
         TextView tvNomeOrcamento = (TextView) view.findViewById(R.id.tvNomeOrcamento);
         TextView tvValores = (TextView) view.findViewById(R.id.tvValores);
-
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        Float valorInicial, valorSaldo;
+        String valorInicialFormatado, valorSaldoFormatado;
+        valorInicial = orcamento.getValorInicial();
+        valorSaldo = orcamento.getSaldo();
+        valorInicialFormatado = decimalFormat.format(valorInicial);
+        valorSaldoFormatado = decimalFormat.format(valorSaldo);
         //Mandando os dados para os elementos do ListView
         if(orcamento.isGastoMultiplo() == false){
             tvNomeOrcamento.setTextColor(Color.BLACK);
@@ -67,8 +76,8 @@ public class AdapterLvOrcamento extends BaseAdapter {
         }
         if(orcamento.isGastoMultiplo() == false){
             tvValores.setTextColor(Color.BLACK);
-            tvValores.setText(c.getString(R.string.lv_valor) + " " + c.getString(R.string.cifrao) + " " + orcamento.getValorInicial() + "\n" +
-                    c.getString(R.string.to_string_forma) + " " + orcamento.getFormadePagamento());
+            tvValores.setText(c.getString(R.string.lv_valor) + " " + c.getString(R.string.cifrao) + " " + valorInicialFormatado.replace(",", ".") + "\n" +
+            c.getString(R.string.to_string_forma) + " " + orcamento.getFormadePagamento());
         }else if(orcamento.isGastoMultiplo() == true){
             if(orcamento.getSaldo() > 0){
                 tvValores.setTextColor(Color.BLUE);
@@ -77,8 +86,8 @@ public class AdapterLvOrcamento extends BaseAdapter {
             }else if(orcamento.getSaldo() < 0){
                 tvValores.setTextColor(Color.RED);
             }
-            tvValores.setText(c.getString(R.string.lv_valor) + " " + c.getString(R.string.cifrao) + " " + orcamento.getValorInicial() + "\n" +
-                    c.getString(R.string.lv_saldo) + " " + c.getString(R.string.cifrao) + " " + orcamento.getSaldo());
+            tvValores.setText(c.getString(R.string.lv_valor) + " " + c.getString(R.string.cifrao) + " " + valorInicialFormatado.replace(",", ".") + "\n" +
+                    c.getString(R.string.lv_saldo) + " " + c.getString(R.string.cifrao) + " " + valorSaldoFormatado.replace(",", "."));
         }
         return view;
     }

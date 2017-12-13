@@ -29,6 +29,7 @@
         android:text="@string/btn_voltar"
         style="@style/button"
         android:onClick="voltar"
+        android:drawableStart="@android:drawable/ic_menu_revert"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"/>
